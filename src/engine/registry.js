@@ -3,7 +3,8 @@ import { nanoid } from 'nanoid';
 export const Registry = () => {
 
     const idIndex = {};
-    const priorityIndex = {};
+    let priorityIndex = {};
+
     const tagIndex = {};
     const propertyIndex = {};
     const propertyTagIndex = {};
@@ -31,7 +32,8 @@ export const Registry = () => {
         idIndex[id] = entry;
         
         //Push to priority array
-        (priorityIndex[priority] ||= {})[id] = entry;       //This should insert in sorted order
+        (priorityIndex[priority] ||= {})[id] = entry;
+        priorityIndex = Object.fromEntries(Object.entries(priorityIndex).sort(([ak, av], [bk, bv]) => ak < bk));
 
         //Push to tag array
         tags.forEach(tag => (tagIndex[tag] ||= []).push(id));
