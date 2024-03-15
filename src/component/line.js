@@ -5,8 +5,8 @@ export const useLine = ({
     endPosition
 }) => {
 
-    if (!startPosition) throw new error('start position not defined');
-    if (!endPosition) throw new error('end position is not defined');
+    if (!startPosition) throw new Error('start position not defined');
+    if (!endPosition) throw new Error('end position is not defined');
 
     const state = {
         startPosition,

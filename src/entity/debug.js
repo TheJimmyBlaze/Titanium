@@ -5,7 +5,7 @@ export const Debug = ({
     camera
 }) => {
 
-    const debugColour = 'lime';
+    const debugColour = 'Lime';
 
     const frames = [];
 
@@ -33,13 +33,16 @@ export const Debug = ({
 
         camera.requestDraw(ctx => {
 
+            const x = -ctx.canvas.width / 2 + 16;
+            const y = -ctx.canvas.height / 2 + 16;
+
             ctx.strokeStyle = ctx.fillStyle = debugColour;
             ctx.beginPath();
 
             ctx.font = '10px RedVector';
 
-            ctx.fillText(`FPS: ${getFps()}`, 16, 16);
-            ctx.fillText(`Perf: ${getPerformance()}%`, 16, 26);
+            ctx.fillText(`FPS: ${getFps()}`, x, y);
+            ctx.fillText(`Perf: ${getPerformance()}%`, x, y + 10);
 
             ctx.stroke();
         });

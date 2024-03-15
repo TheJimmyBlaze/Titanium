@@ -4,20 +4,19 @@ import { lerp } from '../engine/math';
 
 export const Camera = ({
     canvas,
+    position = usePosition({}),
     minZoom = 1,
     maxZoom = 10,
     scale = 1,
     zoom = 0,
-    smoothing = 0.0001,
-    focusPosition = null
+    smoothing = 0.0001
 }) => {
 
-    if (!canvas) throw new error('canvas is not defined');
+    if (!canvas) throw new Error('canvas is not defined');
 
     const getWidth = () => canvas.getWidth();
     const getHeight = () => canvas.getHeight();
 
-    const position = usePosition({});
     const collider = useRectCollider({
         position,
         width: getWidth(),
@@ -29,8 +28,7 @@ export const Camera = ({
         targetScale: scale,
         zoom: zoom,
         targetZoom: zoom,
-        smoothing: smoothing,
-        focus: focusPosition
+        smoothing: smoothing
     };
 
     const getScale = () => state.targetScale;
@@ -49,16 +47,10 @@ export const Camera = ({
 
     const setSmoothing = smoothing => state.smoothing = smoothing;
 
-    const getFocus = () => state.focus || usePosition({});
-    const setFocus = focus => state.focus = focus;
-
     const update = () => {
 
         collider.setWidth(getWidth());
         collider.setHeight(getHeight());
-
-        const {x: focusX, y: focusY} = getFocus().getPosition();
-        position.moveTo(focusX, focusY);
 
         if (Math.abs(state.targetScale - state.scale) > 0.01) {
             state.scale = lerp(
@@ -112,11 +104,11 @@ export const Camera = ({
 
     const applyTranslation = ctx => {
 
-        if (state.focus) {
+        const {x, y} = position.getPosition();
+        if (!(x === y === 0)) {
 
             const width = collider.getWidth();
             const height = collider.getHeight();
-            const {x, y} = position.getPosition();
 
             const followX = x * getZoomScale() - width / 2;
             const followY = y * getZoomScale() - height / 2;
@@ -128,7 +120,7 @@ export const Camera = ({
         }
     };
 
-    const draw = () => {
+    const commit = () => {
 
         //Camera can only be updated immediately before the draw step
         update();
@@ -159,12 +151,10 @@ export const Camera = ({
         incrementZoom,
         getZoomScale,
         setSmoothing,
-        setFocus,
-        getFocus,
         getAbsolutePosition,
         getRelativePosition,
         requestDraw,
 
-        draw
+        commit
     };
 };

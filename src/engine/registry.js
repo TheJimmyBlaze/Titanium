@@ -3,18 +3,22 @@ import { nanoid } from 'nanoid';
 export const Registry = () => {
 
     const idIndex = {};
-    let priorityIndex = {};
 
     const tagIndex = {};
     const propertyIndex = {};
     const propertyTagIndex = {};
 
-    const getAll = () => Object.values(priorityIndex).map(prio => Object.values(prio)).flat().map(entry => entry.entity);
+    const get = id => idIndex[id];
+
+    const all = () => Object.values(idIndex);
+
+    const tag = tag => tagIndex[tag];
+    const find = property => propertyIndex[property];
+    const findTag = (property, tag) => propertyTagIndex[property][tag];
 
     const register = ({
         entity,
         tags = [],
-        priority = 0
     }) => {
 
         if (tags.length === 0) {
@@ -22,18 +26,7 @@ export const Registry = () => {
         };
         
         const id = nanoid();
-        const entry = {
-            id,
-            entity,
-            tags,
-            priority
-        };
-
-        idIndex[id] = entry;
-        
-        //Push to priority array
-        (priorityIndex[priority] ||= {})[id] = entry;
-        priorityIndex = Object.fromEntries(Object.entries(priorityIndex).sort(([ak, av], [bk, bv]) => ak < bk));
+        idIndex[id] = entity;
 
         //Push to tag array
         tags.forEach(tag => (tagIndex[tag] ||= []).push(id));
@@ -51,7 +44,6 @@ export const Registry = () => {
 
         console.log('\n');
         console.log(`id: ${JSON.stringify(idIndex)}`);
-        console.log(`prio: ${JSON.stringify(priorityIndex)}`);
         console.log(`tag: ${JSON.stringify(tagIndex)}`);
         console.log(`prop: ${JSON.stringify(propertyIndex)}`);
         console.log(`proTag: ${JSON.stringify(propertyTagIndex)}`);
@@ -59,7 +51,11 @@ export const Registry = () => {
     };
 
     return {
-        getAll,
+        get,
+        all,
+        tag,
+        find,
+        findTag,
         register
     };
 };

@@ -4,7 +4,7 @@ export const Canvas = ({
     backgroundColour = null
 }) => {
 
-    if (!elementId) throw new error('element id is not defined');
+    if (!elementId) throw new Error('element id is not defined');
 
     const canvas = document.getElementById(elementId);
     canvas.style.boxSizing = 'content-box';

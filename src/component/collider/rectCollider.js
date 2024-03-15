@@ -6,8 +6,8 @@ export const useRectCollider = ({
     height
 }) => {
 
-    if (!position) throw new error('position is not defined');
-    if (!width || !height) throw new error('cannot create a rect collider with a width or height of 0, use a line or point collider instead');
+    if (!position) throw new Error('position is not defined');
+    if (!width || !height) throw new Error('cannot create a rect collider with a width or height of 0, use a line or point collider instead');
 
     const type = collisionTypes.rect;
 

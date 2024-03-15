@@ -14,11 +14,15 @@ export const registry = Registry();
 export const Game = () => {
     
     const update = () => {
-        registry.getAll().forEach(entity => entity.update?.());
+        registry.find('update').forEach(id => registry.get(id).update?.());
     };
 
     const draw = () => {
-        registry.getAll().forEach(entity => entity.draw?.())
+        registry.find('draw').forEach(id => registry.get(id).draw?.())
+    };
+
+    const commit = () => {
+        registry.find('commit').forEach(id => registry.get(id).commit?.())
     };
 
     const animate = async timestamp => {
@@ -29,6 +33,7 @@ export const Game = () => {
 
         update();
         draw();
+        commit();
 
         //Uncomment this to add fps lag
         //await new Promise(r => setTimeout(r, 40));
