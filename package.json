@@ -1,0 +1,19 @@
+{
+  "name": "titanium-ecs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheJimmyBlaze/Titanium-ECS.git"
+  },
+  "author": "TheJimmyBlaze",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheJimmyBlaze/Titanium-ECS/issues"
+  },
+  "homepage": "https://github.com/TheJimmyBlaze/Titanium-ECS#readme"
+}
