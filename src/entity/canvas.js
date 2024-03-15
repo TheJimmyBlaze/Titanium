@@ -1,16 +1,17 @@
 
-export const useCanvas = ({
-    elementId
+export const Canvas = ({
+    elementId,
+    backgroundColour = null
 }) => {
 
     if (!elementId) throw new error('element id is not defined');
 
     const canvas = document.getElementById(elementId);
-
-    const ctx = canvas.getContext('2d');
-
     canvas.style.boxSizing = 'content-box';
     canvas.style.display = 'inline-block';
+
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
     
     const getComputedSize = () => {
         
@@ -30,13 +31,14 @@ export const useCanvas = ({
 
     const state = {
         width: getComputedSize().width,
-        height: getComputedSize().height
+        height: getComputedSize().height,
+        backgroundColour: backgroundColour
     };
-
-    console.log(state);
 
     const getWidth = () => state.width;
     const getHeight = () => state.height;
+
+    const setBackgroundColour = colour => state.backgroundColour = colour;
 
     const resizeRegistrations = [];
     const registerResizeEvent = callback => {
@@ -65,15 +67,34 @@ export const useCanvas = ({
             }
         }
     };
+    update(true);
+    
+    const draw = () => {
+
+        //Canvas can only be updated immediately before the draw step
+        update();
+
+        ctx.beginPath();
+
+        if (state.backgroundColour === null) {
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            return;
+        }
+
+        ctx.fillStyle = state.backgroundColour;
+        ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.fill();
+    };
 
     return {
         canvas,
         ctx,
         getWidth,
         getHeight,
+        setBackgroundColour,
         registerResizeEvent,
-        update
+        draw
     };
 };
 
-export default useCanvas;
+export default Canvas;

@@ -8,7 +8,7 @@ export const deltaTime = () => lastDeltaTime;
 let lastComputeTime = 0;
 export const computeTime = () => lastComputeTime;
 
-export const useGame = ({
+export const Game = ({
     entities = []
 }) => {
     

@@ -3,12 +3,12 @@ import * as packageInfo from './package.json';
 export const getVersion = () => `${packageInfo.name}: ${packageInfo.version}`;
 
 //Engine
-export { timestamp, deltaTime, computeTime, useGame } from './src/engine/game';
+export { timestamp, deltaTime, computeTime, Game } from './src/engine/game';
 export { lerp } from './src/engine/math';
 
 //Entity
-export { useCanvas } from './src/entity/canvas';
-export { useCamera } from './src/entity/camera';
+export { Canvas } from './src/entity/canvas';
+export { Camera } from './src/entity/camera';
 
 //Component
 export { usePosition } from './src/component/position';

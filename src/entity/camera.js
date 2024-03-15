@@ -2,15 +2,14 @@ import { usePosition } from '../component/position';
 import { useRectCollider } from '../component/collider/rectCollider';
 import { lerp } from '../engine/math';
 
-export const useCamera = ({
+export const Camera = ({
     canvas,
     minZoom = 1,
     maxZoom = 10,
     scale = 1,
     zoom = 0,
     smoothing = 0.0001,
-    focusPosition = null,
-    backgroundColour = null
+    focusPosition = null
 }) => {
 
     if (!canvas) throw new error('canvas is not defined');
@@ -31,8 +30,7 @@ export const useCamera = ({
         zoom: zoom,
         targetZoom: zoom,
         smoothing: smoothing,
-        focus: focusPosition,
-        backgroundColour: backgroundColour
+        focus: focusPosition
     };
 
     const getScale = () => state.targetScale;
@@ -54,11 +52,8 @@ export const useCamera = ({
     const getFocus = () => state.focus || usePosition({});
     const setFocus = focus => state.focus = focus;
 
-    const setBackgroundColour = colour => state.backgroundColour = colour;
-
     const update = () => {
 
-        canvas.update();
         collider.setWidth(getWidth());
         collider.setHeight(getHeight());
 
@@ -133,28 +128,13 @@ export const useCamera = ({
         }
     };
 
-    const clear = ctx => {
-
-        if (state.backgroundColour === null) {
-            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-            return;
-        }
-
-        ctx.fillStyle = state.backgroundColour;
-        ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        ctx.fill();
-    };
-
     const draw = () => {
 
-        //Cameras and canvases cannot be updated in the games update loop
+        //Camera can only be updated immediately before the draw step
         update();
 
         const ctx = canvas.ctx;
         ctx.beginPath();
-
-        ctx.imageSmoothingEnabled = false;
-        clear(ctx);
 
         ctx.moveTo(0, 0);
 
@@ -185,7 +165,6 @@ export const useCamera = ({
         setSmoothing,
         setFocus,
         getFocus,
-        setBackgroundColour,
         getAbsolutePosition,
         getRelativePosition,
         requestDraw,
