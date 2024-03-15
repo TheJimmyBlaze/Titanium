@@ -1,5 +1,5 @@
 {
-  "name": "titanium-ecs",
+  "name": "titanium",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TheJimmyBlaze/Titanium-ECS.git"
+    "url": "git+https://github.com/TheJimmyBlaze/Titanium.git"
   },
   "author": "TheJimmyBlaze",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TheJimmyBlaze/Titanium-ECS/issues"
+    "url": "https://github.com/TheJimmyBlaze/Titanium/issues"
   },
-  "homepage": "https://github.com/TheJimmyBlaze/Titanium-ECS#readme",
+  "homepage": "https://github.com/TheJimmyBlaze/Titanium#readme",
   "dependencies": {
     "nanoid": "^5.0.6"
   }
