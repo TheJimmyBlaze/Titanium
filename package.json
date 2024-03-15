@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/TheJimmyBlaze/Titanium-ECS/issues"
   },
-  "homepage": "https://github.com/TheJimmyBlaze/Titanium-ECS#readme"
+  "homepage": "https://github.com/TheJimmyBlaze/Titanium-ECS#readme",
+  "dependencies": {
+    "nanoid": "^5.0.6"
+  }
 }

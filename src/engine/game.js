@@ -1,3 +1,4 @@
+import { Registry } from "./registry";
 
 let lastTime = 0;
 export const timestamp = () => lastTime;
@@ -8,16 +9,16 @@ export const deltaTime = () => lastDeltaTime;
 let lastComputeTime = 0;
 export const computeTime = () => lastComputeTime;
 
-export const Game = ({
-    entities = []
-}) => {
+export const registry = Registry();
+
+export const Game = () => {
     
     const update = () => {
-        entities.forEach(entity => entity.update?.());
+        registry.getAll().forEach(entity => entity.update?.());
     };
 
     const draw = () => {
-        entities.forEach(entity => entity.draw?.())
+        registry.getAll().forEach(entity => entity.draw?.())
     };
 
     const animate = async timestamp => {

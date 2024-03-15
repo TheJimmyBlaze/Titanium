@@ -93,6 +93,7 @@ export const Canvas = ({
         getHeight,
         setBackgroundColour,
         registerResizeEvent,
+
         draw
     };
 };

@@ -138,10 +138,6 @@ export const Camera = ({
 
         ctx.moveTo(0, 0);
 
-        ctx.fillStyle = ctx.strokeStyle = 'white';
-        ctx.lineTo(ctx.canvas.width, ctx.canvas.height);
-        ctx.stroke();
-
         applyTranslation(ctx);
 
         while (drawQueue.length > 0) {
@@ -168,6 +164,7 @@ export const Camera = ({
         getAbsolutePosition,
         getRelativePosition,
         requestDraw,
+
         draw
     };
 };
