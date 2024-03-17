@@ -37,7 +37,7 @@ export const useRegistry = () => {
         });
     };
 
-    const stringify = () => JSON.stringify({idIndex, nameIndex, componentIndex, actionIndex});
+    const stringify = () => JSON.stringify({idIndex: Object.keys(idIndex), nameIndex, componentIndex, actionIndex});
 
     return {
         getId,

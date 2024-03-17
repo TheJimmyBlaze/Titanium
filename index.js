@@ -3,7 +3,7 @@ import * as packageInfo from './package.json';
 export const getVersion = () => `${packageInfo.name}: ${packageInfo.version}`;
 
 //Engine
-export { timestamp, deltaTime, computeTime, registry, game } from './src/engine/game';
+export { timestamp, deltaTime, computeTime, useGame, registry } from './src/engine/game';
 export { lerp } from './src/engine/math';
 export { useEntity } from './src/engine/entity';
 
@@ -22,7 +22,7 @@ export { usePosition } from './src/component/position/position';
 export { useLine } from './src/component/position/line';
 
 //Entity
-export { performanceProfiler } from './src/entity/performanceProfiler';
+export { usePerformanceProfiler } from './src/entity/performanceProfiler';
 
 //System
 //Nothing yet...

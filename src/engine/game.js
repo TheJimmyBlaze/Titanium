@@ -1,7 +1,7 @@
 import { update } from '../system/update';
 import { draw } from '../system/draw';
 import { commit } from '../system/commit';
-import { Registry } from "./registry";
+import { useRegistry } from "./registry";
 
 let lastTime = 0;
 export const timestamp = () => lastTime;
@@ -12,9 +12,9 @@ export const deltaTime = () => lastDeltaTime;
 let lastComputeTime = 0;
 export const computeTime = () => lastComputeTime;
 
-export const registry = Registry();
+export const registry = useRegistry();
 
-export const game = ({
+export const useGame = ({
     systems = []
 }) => {
 

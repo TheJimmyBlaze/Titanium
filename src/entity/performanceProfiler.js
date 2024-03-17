@@ -1,7 +1,7 @@
 import { useEntity } from '../engine/entity';
 import { useFrameProfiler } from '../component/performance/frameProfiler';
 
-export const performanceProfiler = ({
+export const usePerformanceProfiler = ({
     drawCamera
 }) => {
 
@@ -11,9 +11,9 @@ export const performanceProfiler = ({
 
     const entity = useEntity({
         name,
-        components: [
+        components: {
             engineFrameProfiler
-        ]
+        }
     });
 
     return {
