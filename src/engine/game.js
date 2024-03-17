@@ -14,7 +14,7 @@ export const computeTime = () => lastComputeTime;
 
 export const registry = Registry();
 
-export const Game = ({
+export const game = ({
     systems = []
 }) => {
 

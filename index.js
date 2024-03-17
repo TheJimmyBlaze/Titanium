@@ -3,7 +3,7 @@ import * as packageInfo from './package.json';
 export const getVersion = () => `${packageInfo.name}: ${packageInfo.version}`;
 
 //Engine
-export { timestamp, deltaTime, computeTime, registry, Game } from './src/engine/game';
+export { timestamp, deltaTime, computeTime, registry, game } from './src/engine/game';
 export { lerp } from './src/engine/math';
 export { useEntity } from './src/engine/entity';
 

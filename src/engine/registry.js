@@ -1,5 +1,5 @@
 
-export const Registry = () => {
+export const useRegistry = () => {
 
     const idIndex = {};
     const nameIndex = {};
