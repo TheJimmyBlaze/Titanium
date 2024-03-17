@@ -1,8 +1,8 @@
-import { usePosition } from '../component/position';
-import { useRectCollider } from '../component/collider/rectCollider';
-import { lerp } from '../engine/math';
+import { usePosition } from '../position/position';
+import { useRectCollider } from '../collision/rectCollider';
+import { lerp } from '../../engine/math';
 
-export const Camera = ({
+export const useCamera = ({
     canvas,
     position = usePosition({}),
     minZoom = 1,
@@ -154,7 +154,8 @@ export const Camera = ({
         getAbsolutePosition,
         getRelativePosition,
         requestDraw,
-
-        commit
+        actions: {
+            commit
+        }
     };
 };

@@ -1,8 +1,8 @@
 
-import { deltaTime, computeTime } from '../engine/game';
+import { deltaTime, computeTime } from '../../engine/game';
 
-export const Debug = ({
-    camera
+export const useFrameProfiler = ({
+    drawCamera
 }) => {
 
     const debugColour = 'Lime';
@@ -31,7 +31,7 @@ export const Debug = ({
 
     const draw = () => {
 
-        camera.requestDraw(ctx => {
+        drawCamera.requestDraw(ctx => {
 
             const x = -ctx.canvas.width / 2 + 16;
             const y = -ctx.canvas.height / 2 + 16;
@@ -49,7 +49,9 @@ export const Debug = ({
     };
 
     return {
-        update,
-        draw
+        actions: {
+            update,
+            draw
+        }
     };
 };

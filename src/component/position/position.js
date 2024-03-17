@@ -1,4 +1,4 @@
-import { lerp } from '../engine/math';
+import { lerp } from '../../engine/math';
 
 export const usePosition = ({
     x = 0,

@@ -1,5 +1,5 @@
 
-export const Canvas = ({
+export const useCanvas = ({
     elementId,
     backgroundColour = null
 }) => {
@@ -93,9 +93,10 @@ export const Canvas = ({
         getHeight,
         setBackgroundColour,
         registerResizeEvent,
-
-        draw
+        actions: {
+            draw
+        }
     };
 };
 
-export default Canvas;
+export default useCanvas;
