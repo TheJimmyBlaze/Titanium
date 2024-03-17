@@ -41,13 +41,6 @@ export const Registry = () => {
             const entry = propertyTagIndex[prop] ||= {};
             tags.forEach(tag => (entry[tag] ||= []).push(id));
         });
-
-        console.log('\n');
-        console.log(`id: ${JSON.stringify(idIndex)}`);
-        console.log(`tag: ${JSON.stringify(tagIndex)}`);
-        console.log(`prop: ${JSON.stringify(propertyIndex)}`);
-        console.log(`proTag: ${JSON.stringify(propertyTagIndex)}`);
-        console.log('\n');
     };
 
     return {
