@@ -1,4 +1,4 @@
-import collisionTypes from './collisionTypes';
+import collisionTypes from '../../engine/collision/collisionTypes';
 
 export const useRectCollider = ({
     position,

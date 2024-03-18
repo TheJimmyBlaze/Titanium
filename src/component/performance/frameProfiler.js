@@ -1,4 +1,3 @@
-
 import { deltaTime, computeTime } from '../../engine/game';
 
 export const useFrameProfiler = ({

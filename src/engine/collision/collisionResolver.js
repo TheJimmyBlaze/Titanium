@@ -1,6 +1,6 @@
-import usePosition from '../engine/position';
 import collisionTypes from './collisionTypes';
-import useLineCollider from './lineCollider';
+import { usePosition } from '../../component/position/position';
+import { useLineCollider } from '../../component/collision/lineCollider';
 
 export const resolveCollision = (collider, collided) => {
 

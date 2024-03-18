@@ -1,4 +1,4 @@
-import colliderTypes from './collisionTypes';
+import colliderTypes from '../../engine/collision/collisionTypes';
 
 export const usePointCollider = ({
     position

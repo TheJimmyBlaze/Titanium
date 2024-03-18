@@ -1,15 +1,19 @@
-
 import { registry } from '../../engine/game';
-import { resolveCollision } from './collisionResolver';
+import { resolveCollision } from '../../engine/collision/collisionResolver';
 
-const useRigidBody = ({
+export const useRigidBody = ({
     obstructiveColliderComponent,
     position,
     motion,
     collider
 }) => {
 
-    const move = () => {
+    if (!obstructiveColliderComponent) throw new error('obstructiveColliderComponent is not defined');
+    if (!position) throw new Error('position is not defined');
+    if (!motion) throw new Error('motion is not defined');
+    if (!collider) throw new Error('collider is not defined');
+
+    const update = () => {
 
         motion.apply(position);
 
@@ -30,8 +34,8 @@ const useRigidBody = ({
     };
 
     return {
-        move
+        actions: {
+            update
+        }
     };
 };
-
-export default useRigidBody;

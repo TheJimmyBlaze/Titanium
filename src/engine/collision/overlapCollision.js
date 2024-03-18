@@ -1,7 +1,7 @@
-import usePosition from 'engine/position';
 import collisionTypes from './collisionTypes';
-import useLineCollider from './lineCollider';
-import usePointCollider from './pointCollider';
+import { usePosition } from '../../component/position/position';
+import { useLineCollider } from '../../component/collision/lineCollider';
+import { usePointCollider } from '../../component/collision/pointCollider';
 
 export const colliderOverlaps = (a, b) => {
 
