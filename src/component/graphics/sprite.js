@@ -1,12 +1,12 @@
 import { timestamp } from '../../engine/game';
 
-export const useSprite = (
+export const useSprite = ({
     position,
     camera,
     frames,
     fps = 0,
     options = {}
-) => {
+}) => {
 
     if (!position) throw new Error('position is not defined');
     if (!camera) throw new Error('camera is not defined');

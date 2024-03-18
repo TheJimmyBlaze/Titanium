@@ -45,7 +45,7 @@ export const useFrame = ({
             drawHeight -= crop.height || 0
         };
 
-        camera.draw(ctx => {
+        camera.requestDraw(ctx => {
 
             if (rotation || flip || invert) {
 

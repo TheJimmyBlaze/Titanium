@@ -1,5 +1,5 @@
 import { useFrame } from './frame';
-import { useSprite } from './sprite';
+import { useSprite } from '../../component/graphics/sprite';
 
 export const useSpriteSheet = ({
     imagePath,
@@ -23,12 +23,12 @@ export const useSpriteSheet = ({
 
             const frame = useFrame({
                 image,
-                sliceWidth,
-                sliceHeight,
+                frameWidth: sliceWidth,
+                frameHeight: sliceHeight,
                 x: run.x + index,
                 y: run.y,
-                width: run.width,
-                height: run.height
+                framesWide: run.width,
+                framesHigh: run.height
             });
             frames.push(frame);
         }
@@ -44,11 +44,11 @@ export const useSpriteSheet = ({
 
         const sprite = buildSpriteForRun(run);
 
-        sprites[sprite.name] = (
+        sprites[sprite.name] = ({
             position,
             camera,
             options = {}
-        ) => useSprite({
+        }) => useSprite({
             position,
             camera,
             frames: sprite.frames, 

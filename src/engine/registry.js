@@ -24,7 +24,7 @@ export const useRegistry = () => {
         if (!name) throw new Error('name is not defined');
         
         idIndex[id] = entity;
-        nameIndex[name] = id;
+        (nameIndex[name] ||= []).push(id);
 
         Object.keys(components).forEach(component => {
 
