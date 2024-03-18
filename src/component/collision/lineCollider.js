@@ -8,8 +8,17 @@ export const useLineCollider = ({
 
     const type = colliderTypes.line;
 
-    return {
+    const collider = {
         type,
         line
+    };
+
+    const contains = subject => colliderContains(collider, subject);
+    const overlaps = subject => colliderOverlaps(collider, subject);
+
+    return {
+        ...collider,
+        contains,
+        overlaps
     };
 };

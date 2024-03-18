@@ -22,12 +22,21 @@ export const useRectCollider = ({
     const getHeight = () => state.height;
     const setHeight = height => state.height = height;
 
-    return {
+    const collider = {
         type,
         position,
         getWidth,
         setWidth,
         getHeight,
         setHeight
+    };
+
+    const contains = subject => colliderContains(collider, subject);
+    const overlaps = subject => colliderOverlaps(collider, subject);
+
+    return {
+        ...collider,
+        contains,
+        overlaps
     };
 };

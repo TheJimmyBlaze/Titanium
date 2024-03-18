@@ -8,8 +8,17 @@ export const usePointCollider = ({
 
     const type = colliderTypes.point;
     
-    return {
+    const collider = {
         type,
         position
+    };
+
+    const contains = subject => colliderContains(collider, subject);
+    const overlaps = subject => colliderOverlaps(collider, subject);
+
+    return {
+        ...collider,
+        contains,
+        overlaps
     };
 };

@@ -1,4 +1,6 @@
 import colliderTypes from './collisionTypes';
+import { colliderContains } from './containCollision';
+import { colliderOverlaps, overlapContains } from './overlapCollision';
 
 export const useCircleCollider = ({
     position,
@@ -17,10 +19,19 @@ export const useCircleCollider = ({
     const getRadius = () => state.radius;
     const setRadius = radius => state.radius = radius;
 
-    return {
+    const collider = {
         type,
         position,
         getRadius,
         setRadius
+    };
+
+    const contains = subject => colliderContains(collider, subject);
+    const overlaps = subject => colliderOverlaps(collider, subject);
+
+    return {
+        ...collider,
+        contains,
+        overlaps
     };
 };
