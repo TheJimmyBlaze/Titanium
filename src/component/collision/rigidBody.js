@@ -1,5 +1,5 @@
 
-import { deltaTime, registry } from '../../engine/game';
+import { registry } from '../../engine/game';
 import { resolveCollision } from './collisionResolver';
 
 const useRigidBody = ({
@@ -10,17 +10,10 @@ const useRigidBody = ({
 }) => {
 
     const move = () => {
-      
-        //Calculate movement
-        const invertedDrag = 1 - motion.drag;
-        motion.velocityX *= invertedDrag;
-        motion.velocityY *= invertedDrag;
 
-        const deltaX = motion.velocityX * deltaTime();
-        const deltaY = motion.velocityY * deltaTime();
-        
+        motion.apply(position);
+
         //Check collision
-        position.move(deltaX, deltaY);
         const colliderIds = registry.findComponent(obstructiveColliderComponent);
         const colliders = colliderIds.map(id => registry.getId(id).components.collisionComponentName);
 
