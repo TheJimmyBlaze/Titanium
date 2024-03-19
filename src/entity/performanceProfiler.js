@@ -5,12 +5,9 @@ export const usePerformanceProfiler = ({
     drawCamera
 }) => {
 
-    const name = 'performanceProfiler.engine';
-
     const engineFrameProfiler = useFrameProfiler({drawCamera});
 
     const entity = useEntity({
-        name,
         components: {
             engineFrameProfiler
         }

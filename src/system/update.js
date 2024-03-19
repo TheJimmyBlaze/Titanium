@@ -3,7 +3,7 @@ import { registry } from "../engine/game";
 export const update = () => {
     
     const act = () => {
-        registry.getActions('update').forEach(action => action.act());
+        registry.getAction('update').forEach(action => action());
     };
 
     return {

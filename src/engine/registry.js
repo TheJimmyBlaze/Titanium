@@ -2,48 +2,45 @@
 export const useRegistry = () => {
 
     const idIndex = {};
-    const nameIndex = {};
     const componentIndex = {};
     const actionIndex = {};
 
     const getId = id => idIndex[id];
-    const getActions = action => actionIndex[action];
-
-    const findName = name => nameIndex[name];
-    const findComponent = component => componentIndex[component];
+    const getComponent = component => Object.values(componentIndex[component]);
+    const getAction = action => Object.values(actionIndex[action]);
 
     const register = entity => {
 
         const {
             id,
-            name,
             components = {}
         } = entity;
 
         if (!id) throw new Error('id is not defined');
-        if (!name) throw new Error('name is not defined');
         
         idIndex[id] = entity;
-        (nameIndex[name] ||= []).push(id);
 
         Object.keys(components).forEach(component => {
 
-            (componentIndex[component] ||= []).push(id);
+            (componentIndex[component] ||= {})[id] = entity;
 
             const { actions = {} } = components[component];
             Object.keys(actions).forEach(action => {
-                (actionIndex[action] ||= []).push({id, act: actions[action]});
-            })
+                (actionIndex[action] ||= {})[id] = actions[action];
+            });
         });
     };
 
-    const stringify = () => JSON.stringify({idIndex: Object.keys(idIndex), nameIndex, componentIndex, actionIndex});
+    const stringify = () => JSON.stringify({
+        idIndex: Object.keys(idIndex), 
+        componentIndex: Object.fromEntries(Object.entries(componentIndex).map(([key, value]) => [key, Object.keys(value)])), 
+        actionIndex: Object.fromEntries(Object.entries(actionIndex).map(([key, value]) => [key, Object.keys(value)])), 
+    });
 
     return {
         getId,
-        getActions,
-        findName,
-        findComponent,
+        getComponent,
+        getAction,
         register,
         stringify
     };
