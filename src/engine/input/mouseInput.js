@@ -3,26 +3,19 @@ import { timestamp } from '../game';
 export const useMouseInput = () => {
 
     const mouseButtons = {};
-    const isMouseDown = button => mouseButtons[button]?.value || false;
+    const isMouseDown = button => !!mouseButtons[button];
 
     const wasMousePressed = button => {
 
         if (!mouseButtons[button]) return false;
-
-        if (!mouseButtons[button].pressTime) {
-            mouseButtons[button].pressTime = timestamp();
-        }
-
-        if (mouseButtons[button].pressTime !== timestamp()) return false;
-        return mouseButtons[button].value;
+        return mouseButtons[button].pressTime === timestamp()
     }
 
     const mouseDown = e => {
 
         const button = e.button;
         mouseButtons[button] = mouseButtons[button] || { 
-            pressTime: null,
-            value: true
+            pressTime: timestamp()
         }
     };
 
@@ -41,25 +34,15 @@ export const useMouseInput = () => {
     };
     const getWheelDelta = () => {
 
-        if (!wheelState.timestamp) {
-            wheelState.timestamp = timestamp();
-        }
-
-        if (wheelState.timestamp !== timestamp()) {
-            wheelState.delta = 0;
-        }
+        if (wheelState.timestamp !== timestamp()) return 0;
         return wheelState.delta;
     }
 
     const wheel = e => {
 
         const delta = e.deltaY;
-        
-        if (wheelState.timestamp != null) {
-            wheelState.delta = 0;
-        }
-        wheelState.timestamp = null;
-        wheelState.delta += delta;
+        wheelState.delta = getWheelDelta() + delta;
+        wheelState.timestamp = timestamp();
     };
 
     window.addEventListener('wheel', wheel);

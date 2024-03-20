@@ -1,10 +1,9 @@
-import { update } from '../system/update';
-import { draw } from '../system/draw';
-import { commit } from '../system/commit';
+import { useUpdate } from '../system/update';
+import { useDraw } from '../system/draw';
+import { useCommit } from '../system/commit';
 
 import { useRegistry } from './registry';
 import { useInputAccess } from './input/inputAccess';
-import { useMousePosition } from './input/mousePosition'; 
 
 let lastTime = 0;
 export const timestamp = () => lastTime;
@@ -22,15 +21,15 @@ export const useGame = ({
     systems = []
 }) => {
 
-    const postSystems = [
-        draw(),
-        update(),
-        commit()
+    const engineSystems = [
+        useDraw(),
+        useUpdate(),
+        useCommit()
     ];
     
     const allSystems = [
         ...systems,
-        ...postSystems
+        ...engineSystems
     ];
 
     const act = () => {
@@ -40,15 +39,16 @@ export const useGame = ({
     const animate = async timestamp => {
 
         const computeStartTime = performance.now();
-        lastDeltaTime = (timestamp - lastTime) / 1000;
-        lastTime = timestamp;
-
+        
         act();
-
+        
         //Uncomment below to add fps lag
         //await new Promise(r => setTimeout(r, 40));
-
+        
         lastComputeTime = performance.now() - computeStartTime;
+        lastDeltaTime = (timestamp - lastTime) / 1000;
+        lastTime = timestamp;
+        
         requestAnimationFrame(animate);
     };
 

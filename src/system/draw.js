@@ -1,6 +1,6 @@
 import { registry } from "../engine/game";
 
-export const draw = () => {
+export const useDraw = () => {
     
     const act = () => {
         registry.getAction('draw').forEach(action => action());
