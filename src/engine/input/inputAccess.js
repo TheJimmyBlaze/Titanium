@@ -1,5 +1,5 @@
-import { useKeyInput } from './input/keyInput';
-import { useMouseInput } from './input/mouseInput';
+import { useKeyInput } from './keyInput';
+import { useMouseInput } from './mouseInput';
 
 export const useInputAccess = () => {
 
