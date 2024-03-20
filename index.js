@@ -3,7 +3,19 @@ import * as packageInfo from './package.json';
 export const getVersion = () => `${packageInfo.name}: ${packageInfo.version}`;
 
 //Engine
-export { timestamp, deltaTime, computeTime, useGame, registry } from './src/engine/game';
+export { 
+
+    timestamp, 
+    deltaTime, 
+    computeTime, 
+    
+    registry, 
+    input, 
+    mousePosition,
+
+    useGame
+} from './src/engine/game';
+
 export { lerp } from './src/engine/math';
 export { resolveCollision } from './src/engine/collision/collisionResolver';
 export { colliderContains } from './src/engine/collision/containCollision';

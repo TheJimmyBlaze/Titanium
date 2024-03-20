@@ -1,11 +1,10 @@
+import { useKeyInput } from './input/keyInput';
+import { useMouseInput } from './input/mouseInput';
 
-export const useInputAccess = ({
-    keyInput,
-    mouseInput
-}) => {
+export const useInputAccess = () => {
 
-    if (!keyInput) throw new Error('keyInput is not defined');
-    if (!mouseInput) throw new Error('mouseInput is not defined');
+    const keyInput = useKeyInput();
+    const mouseInput = useMouseInput();
 
     const binds = {};
     const getBinds = () => binds;

@@ -1,10 +1,8 @@
 import { usePosition } from "../../component/position/position";
 
-export const useMousePosition = ({
-    position
-}) => {
+export const useMousePosition = () => {
 
-    if (!position) throw new Error('position is not defined');
+    const position = usePosition({});
 
     const state = {
         lockedCamera: null
@@ -56,7 +54,7 @@ export const useMousePosition = ({
         );
     };
 
-    const getMousePosition = camera => {
+    const getRelativePosition = camera => {
 
         if (camera === null) return position;
         
@@ -78,6 +76,6 @@ export const useMousePosition = ({
         isLocked,
         lock,
         unlock,
-        getMousePosition
+        getRelativePosition
     };
 };

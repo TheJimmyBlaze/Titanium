@@ -1,7 +1,10 @@
 import { update } from '../system/update';
 import { draw } from '../system/draw';
 import { commit } from '../system/commit';
-import { useRegistry } from "./registry";
+
+import { useRegistry } from './registry';
+import { useInputAccess } from './input/inputAccess';
+import { useMousePosition } from './input/mousePosition'; 
 
 let lastTime = 0;
 export const timestamp = () => lastTime;
@@ -13,6 +16,9 @@ let lastComputeTime = 0;
 export const computeTime = () => lastComputeTime;
 
 export const registry = useRegistry();
+
+export const input = useInputAccess();
+export const mousePosition = useMousePosition();
 
 export const useGame = ({
     systems = []
