@@ -7,10 +7,14 @@ export const useMouseInput = () => {
 
     const wasMousePressed = button => {
 
-        if (!mouseButtons[button] || !mouseButtons[button].value) return false;
+        if (
+            !mouseButtons[button] || 
+            !mouseButtons[button].value ||
+            mouseButtons[button].pressTime == null
+        ) return false;
 
         const { value } = mouseButtons[button];
-        mouseButtons[button].value = false;
+        mouseButtons[button].pressTime = null;
 
         return value;
     }
@@ -18,7 +22,10 @@ export const useMouseInput = () => {
     const mouseDown = e => {
 
         const button = e.button;
-        mouseButtons[button] = mouseButtons[button] || { value: true}
+        mouseButtons[button] = mouseButtons[button] || { 
+            pressTime: timestamp(),
+            value: true
+        }
     };
 
     const mouseUp = e => {

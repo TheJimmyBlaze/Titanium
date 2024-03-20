@@ -1,3 +1,4 @@
+import { timestamp } from '../game';
 
 export const useKeyInput = () => {
 
@@ -7,10 +8,14 @@ export const useKeyInput = () => {
 
     const wasKeyPressed = key => {
 
-        if (!keys[key] || !keys[key].value) return false;
+        if (
+            !keys[key] || 
+            !keys[key].value || 
+            keys[key].pressTime == null
+        ) return false;
 
         const { value } = keys[key];
-        keys[key].value = false;
+        keys[key].pressTime = null;
 
         return value;
     }
@@ -18,7 +23,10 @@ export const useKeyInput = () => {
     const keyDown = e => {
         
         const key = e.code;
-        keys[key] = keys[key] || { value: true };
+        keys[key] = keys[key] || { 
+            pressTime: timestamp(),
+            value: true
+        };
     };
 
     const keyUp = e => {

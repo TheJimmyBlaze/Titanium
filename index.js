@@ -9,9 +9,8 @@ export {
     deltaTime, 
     computeTime, 
     
-    registry, 
-    input, 
-    mousePosition,
+    input,
+    registry,
 
     useGame
 } from './src/engine/game';

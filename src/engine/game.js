@@ -15,10 +15,8 @@ export const deltaTime = () => lastDeltaTime;
 let lastComputeTime = 0;
 export const computeTime = () => lastComputeTime;
 
-export const registry = useRegistry();
-
 export const input = useInputAccess();
-export const mousePosition = useMousePosition();
+export const registry = useRegistry();
 
 export const useGame = ({
     systems = []

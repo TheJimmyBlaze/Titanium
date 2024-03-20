@@ -1,10 +1,12 @@
 import { useKeyInput } from './keyInput';
 import { useMouseInput } from './mouseInput';
+import { useMousePosition } from './mousePosition';
 
 export const useInputAccess = () => {
 
     const keyInput = useKeyInput();
     const mouseInput = useMouseInput();
+    const mousePosition = useMousePosition();
 
     const binds = {};
     const getBinds = () => binds;
@@ -72,6 +74,7 @@ export const useInputAccess = () => {
         setBind,
         isDown,
         wasPressed,
-        getMouseWheelDelta: mouseInput.getWheelDelta
+        getMouseWheelDelta: mouseInput.getWheelDelta,
+        getMousePosition: mousePosition.getRelativePosition
     };
 };
