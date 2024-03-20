@@ -1,19 +1,19 @@
 
 export const useKeyInput = () => {
 
-    const keys = [];
-    const isKeyDown = key => keys.indexOf(key) !== -1;
+    const keys = {};
+    const isKeyDown = key => keys[key] || false;
 
     const keyDown = e => {
         
         const key = e.code;
-        keys.push(key);
+        keys[key] = true;
     };
 
     const keyUp = e => {
 
         const key = e.code;
-        keys.splice(keys.indexOf(key), 1);
+        keys[key] = false;
     };
 
     window.addEventListener('keydown', keyDown);

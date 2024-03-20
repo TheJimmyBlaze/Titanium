@@ -44,10 +44,10 @@ export const useInputAccess = () => {
             if (!primary && !secondary) return false;
 
             return (
-                keyInput.isDown(primary.key) ||
-                mouseInput.isDown(primary.mouseButton) ||
-                keyInput.isDown(secondary.key) ||
-                mouseInput.isDown(secondary.mouseButton)
+                keyInput.isKeyDown(primary?.key) ||
+                mouseInput.isMouseDown(primary?.mouseButton) ||
+                keyInput.isKeyDown(secondary?.key) ||
+                mouseInput.isMouseDown(secondary?.mouseButton)
             );
         };
     };
@@ -55,6 +55,7 @@ export const useInputAccess = () => {
     return {
         getBinds,
         setBind,
-        getInput
+        getInput,
+        getMouseWheelDelta: mouseInput.getWheelDelta
     };
 };

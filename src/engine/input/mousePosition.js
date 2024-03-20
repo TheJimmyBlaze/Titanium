@@ -56,7 +56,7 @@ export const useMousePosition = () => {
 
     const getRelativePosition = camera => {
 
-        if (camera === null) return position;
+        if (camera == null) return position;
         
         const {position: camPos, collider: camCollider, canvas: camCanvas} = camera;
         const {x: camX, y: camY} = camPos.getPosition();

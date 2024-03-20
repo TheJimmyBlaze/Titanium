@@ -7,7 +7,17 @@ export const useMouseInput = () => {
         delta: 0
     };
 
-    const getWheelDelta = () => state.delta;
+    const getWheelDelta = () => {
+
+        const delta = state.delta;
+        
+        if (state.deltaTimestamp !== timestamp()) {
+            state.deltaTimestamp = timestamp();
+            state.delta = 0;
+        }
+
+        return delta;
+    }
 
     const mouseButtons = [];
     const isMouseDown = button => mouseButtons.indexOf(button) !== -1;
@@ -25,14 +35,9 @@ export const useMouseInput = () => {
     };
 
     const wheel = e => {
-        
-        if (state.deltaTimestamp !== timestamp) {
-            state.deltaTimestamp = timestamp;
-            state.delta = 0;
-        }
 
         const delta = e.deltaY;
-        state.delta += delta;
+        state.delta = getWheelDelta() + delta;
     };
 
     document.oncontextmenu = e => e.preventDefault();
