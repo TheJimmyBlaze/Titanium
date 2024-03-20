@@ -45,7 +45,7 @@ export const useGame = ({
 
         act();
 
-        //Uncomment this to add fps lag
+        //Uncomment below to add fps lag
         //await new Promise(r => setTimeout(r, 40));
 
         lastComputeTime = performance.now() - computeStartTime;

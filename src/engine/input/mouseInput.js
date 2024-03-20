@@ -7,23 +7,21 @@ export const useMouseInput = () => {
 
     const wasMousePressed = button => {
 
-        if (
-            !mouseButtons[button] || 
-            !mouseButtons[button].value ||
-            mouseButtons[button].pressTime == null
-        ) return false;
+        if (!mouseButtons[button]) return false;
 
-        const { value } = mouseButtons[button];
-        mouseButtons[button].pressTime = null;
+        if (!mouseButtons[button].pressTime) {
+            mouseButtons[button].pressTime = timestamp();
+        }
 
-        return value;
+        if (mouseButtons[button].pressTime !== timestamp()) return false;
+        return mouseButtons[button].value;
     }
 
     const mouseDown = e => {
 
         const button = e.button;
         mouseButtons[button] = mouseButtons[button] || { 
-            pressTime: timestamp(),
+            pressTime: null,
             value: true
         }
     };
@@ -38,29 +36,30 @@ export const useMouseInput = () => {
     document.addEventListener('mouseup', mouseUp);
 
     const wheelState = {
-        deltaTimestamp: 0,
+        timestamp: null,
         delta: 0
     };
-
     const getWheelDelta = () => {
 
-        const {
-            deltaTimestamp,
-            delta
-        } = wheelState;
-        
-        if (deltaTimestamp !== timestamp()) {
-            wheelState.deltaTimestamp = timestamp();
-            wheelState.delta = 0;
+        if (!wheelState.timestamp) {
+            wheelState.timestamp = timestamp();
         }
 
-        return delta;
+        if (wheelState.timestamp !== timestamp()) {
+            wheelState.delta = 0;
+        }
+        return wheelState.delta;
     }
 
     const wheel = e => {
 
         const delta = e.deltaY;
-        wheelState.delta = getWheelDelta() + delta;
+        
+        if (wheelState.timestamp != null) {
+            wheelState.delta = 0;
+        }
+        wheelState.timestamp = null;
+        wheelState.delta += delta;
     };
 
     window.addEventListener('wheel', wheel);

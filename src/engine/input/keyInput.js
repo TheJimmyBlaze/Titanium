@@ -8,23 +8,21 @@ export const useKeyInput = () => {
 
     const wasKeyPressed = key => {
 
-        if (
-            !keys[key] || 
-            !keys[key].value || 
-            keys[key].pressTime == null
-        ) return false;
+        if (!keys[key]) return false;
 
-        const { value } = keys[key];
-        keys[key].pressTime = null;
+        if (!keys[key].pressTime) {
+            keys[key].pressTime = timestamp();
+        }
 
-        return value;
+        if (keys[key].pressTime !== timestamp()) return false;
+        return keys[key].value;
     }
 
     const keyDown = e => {
         
         const key = e.code;
         keys[key] = keys[key] || { 
-            pressTime: timestamp(),
+            pressTime: null,
             value: true
         };
     };
