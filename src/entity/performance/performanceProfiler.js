@@ -1,5 +1,5 @@
-import { useEntity } from '../engine/entity';
-import { useFrameProfiler } from '../component/performance/frameProfiler';
+import { useEntity } from '../../engine/entity';
+import { useFrameProfiler } from '../../component/performance/frameProfiler';
 
 export const usePerformanceProfiler = ({
     drawCamera

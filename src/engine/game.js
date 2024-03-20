@@ -18,15 +18,15 @@ export const useGame = ({
     systems = []
 }) => {
 
-    const engineSystems = [
-        update(),
+    const postSystems = [
         draw(),
+        update(),
         commit()
     ];
     
     const allSystems = [
         ...systems,
-        ...engineSystems
+        ...postSystems
     ];
 
     const act = () => {

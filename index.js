@@ -30,7 +30,7 @@ export { useLine } from './src/component/position/line';
 export { useMotion } from './src/component/position/motion';
 
 //Entity
-export { usePerformanceProfiler } from './src/entity/performanceProfiler';
+export { usePerformanceProfiler } from './src/entity/performance/performanceProfiler';
 
 //System
 //Nothing yet...
