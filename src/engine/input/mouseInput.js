@@ -2,51 +2,67 @@ import { timestamp } from '../game';
 
 export const useMouseInput = () => {
 
-    const state = {
+    const mouseButtons = {};
+    const isMouseDown = button => mouseButtons[button]?.value || false;
+
+    const wasMousePressed = button => {
+
+        if (!mouseButtons[button] || !mouseButtons[button].value) return false;
+
+        const { value } = mouseButtons[button];
+        mouseButtons[button].value = false;
+
+        return value;
+    }
+
+    const mouseDown = e => {
+
+        const button = e.button;
+        mouseButtons[button] = mouseButtons[button] || { value: true}
+    };
+
+    const mouseUp = e => {
+
+        const button = e.button;
+        mouseButtons[button] = null;
+    };
+    
+    document.addEventListener('mousedown', mouseDown);
+    document.addEventListener('mouseup', mouseUp);
+
+    const wheelState = {
         deltaTimestamp: 0,
         delta: 0
     };
 
     const getWheelDelta = () => {
 
-        const delta = state.delta;
+        const {
+            deltaTimestamp,
+            delta
+        } = wheelState;
         
-        if (state.deltaTimestamp !== timestamp()) {
-            state.deltaTimestamp = timestamp();
-            state.delta = 0;
+        if (deltaTimestamp !== timestamp()) {
+            wheelState.deltaTimestamp = timestamp();
+            wheelState.delta = 0;
         }
 
         return delta;
     }
 
-    const mouseButtons = [];
-    const isMouseDown = button => mouseButtons.indexOf(button) !== -1;
-
-    const mouseDown = e => {
-
-        const button = e.button;
-        mouseButtons.push(button);
-    };
-
-    const mouseUp = e => {
-
-        const button = e.button;
-        mouseButtons.splice(mouseButtons.indexOf(button, 1));
-    };
-
     const wheel = e => {
 
         const delta = e.deltaY;
-        state.delta = getWheelDelta() + delta;
+        wheelState.delta = getWheelDelta() + delta;
     };
 
-    document.oncontextmenu = e => e.preventDefault();
     window.addEventListener('wheel', wheel);
-    document.addEventListener('mousedown', mouseDown);
-    document.addEventListener('mouseup', mouseUp);
+
+    document.oncontextmenu = e => e.preventDefault();
 
     return {
         isMouseDown,
+        wasMousePressed,
         getWheelDelta
     };
 };

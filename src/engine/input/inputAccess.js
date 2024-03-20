@@ -9,8 +9,11 @@ export const useInputAccess = () => {
     const binds = {};
     const getBinds = () => binds;
 
-    const inputs = {};
-    const getInput = () => inputs;
+    const isDownCallbacks = {};
+    const isDown = () => isDownCallbacks;
+    
+    const wasPressedCallbacks = {};
+    const wasPressed = () => wasPressedCallbacks;
 
     const setBind = ({
         alias,
@@ -39,7 +42,7 @@ export const useInputAccess = () => {
             secondary
         };
 
-        inputs[alias] = () => {
+        isDownCallbacks[alias] = () => {
 
             if (!primary && !secondary) return false;
 
@@ -50,12 +53,25 @@ export const useInputAccess = () => {
                 mouseInput.isMouseDown(secondary?.mouseButton)
             );
         };
+
+        wasPressedCallbacks[alias] = () => {
+
+            if (!primary && !secondary) return false;
+
+            return (
+                keyInput.wasKeyPressed(primary?.key) ||
+                mouseInput.wasMousePressed(primary?.mouseButton) ||
+                keyInput.wasKeyPressed(secondary?.key) ||
+                mouseInput.wasMousePressed(secondary?.mouseButton)
+            );
+        };
     };
 
     return {
         getBinds,
         setBind,
-        getInput,
+        isDown,
+        wasPressed,
         getMouseWheelDelta: mouseInput.getWheelDelta
     };
 };
