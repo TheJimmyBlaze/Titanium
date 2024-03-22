@@ -40,6 +40,8 @@ export { usePosition } from './src/component/position/position';
 export { useLine } from './src/component/position/line';
 export { useMotion } from './src/component/position/motion';
 
+export { useFiniteStateMachine } from './src/component/stateMachine/finiteStateMachine';
+
 //Entity
 export { usePerformanceProfiler } from './src/entity/performance/performanceProfiler';
 
