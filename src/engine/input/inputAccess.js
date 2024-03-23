@@ -12,10 +12,10 @@ export const useInputAccess = () => {
     const getBinds = () => binds;
 
     const isDownCallbacks = {};
-    const isDown = () => isDownCallbacks;
+    const isDown = bind => isDownCallbacks[bind]();
     
     const wasPressedCallbacks = {};
-    const wasPressed = () => wasPressedCallbacks;
+    const wasPressed = bind => wasPressedCallbacks[bind]();
 
     const setBind = ({
         alias,

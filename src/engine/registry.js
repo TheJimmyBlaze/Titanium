@@ -6,8 +6,8 @@ export const useRegistry = () => {
     const actionIndex = {};
 
     const getId = id => idIndex[id];
-    const getComponent = component => Object.values(componentIndex[component]);
-    const getAction = action => Object.values(actionIndex[action]);
+    const getComponent = component => componentIndex[component] && Object.values(componentIndex[component]);
+    const getAction = action => actionIndex[action] && Object.values(actionIndex[action]);
 
     const register = entity => {
 
@@ -26,7 +26,7 @@ export const useRegistry = () => {
 
             const { actions = {} } = components[component];
             Object.keys(actions).forEach(action => {
-                (actionIndex[action] ||= {})[id] = actions[action];
+                ((actionIndex[action] ||= {})[id] ||= []).push(actions[action]);
             });
         });
     };
