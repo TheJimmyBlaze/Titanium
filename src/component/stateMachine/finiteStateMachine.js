@@ -16,6 +16,8 @@ export const useFiniteStateMachine = ({
         condition
     }) => {
 
+        if (!condition) throw new Error('condition is not defined');
+
         (transitions[exitState] ||= []).push({
             enterState,
             condition
