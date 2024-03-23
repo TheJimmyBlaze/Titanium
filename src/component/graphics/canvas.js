@@ -11,7 +11,6 @@ export const useCanvas = ({
     canvas.style.display = 'inline-block';
 
     const ctx = canvas.getContext('2d');
-    ctx.imageSmoothingEnabled = false;
     
     const getComputedSize = () => {
         
@@ -75,6 +74,7 @@ export const useCanvas = ({
         update();
 
         ctx.beginPath();
+        ctx.imageSmoothingEnabled = false;
 
         if (state.backgroundColour === null) {
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);

@@ -32,8 +32,8 @@ export const useFrameProfiler = ({
 
         drawCamera.requestDraw(ctx => {
 
-            const x = -ctx.canvas.width / 2 + 16;
-            const y = -ctx.canvas.height / 2 + 16;
+            const x = -(ctx.canvas.width / drawCamera.getZoomScale()) / 2 + 16;
+            const y = -(ctx.canvas.height / drawCamera.getZoomScale()) / 2 + 16;
 
             ctx.strokeStyle = ctx.fillStyle = debugColour;
             ctx.beginPath();
