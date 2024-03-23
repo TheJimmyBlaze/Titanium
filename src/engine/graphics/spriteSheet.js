@@ -49,6 +49,7 @@ export const useSpriteSheet = ({
             camera,
             options = {}
         }) => useSprite({
+            name: sprite.name,
             position,
             camera,
             frames: sprite.frames, 

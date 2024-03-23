@@ -1,6 +1,7 @@
 import { timestamp } from '../../engine/game';
 
 export const useSprite = ({
+    name,
     position,
     camera,
     frames,
@@ -8,6 +9,7 @@ export const useSprite = ({
     options = {}
 }) => {
 
+    if (!name) throw new Error('name is not defined');
     if (!position) throw new Error('position is not defined');
     if (!camera) throw new Error('camera is not defined');
     if (!frames || frames.length === 0)  throw new Error('frames must contain at least one element');
@@ -53,6 +55,7 @@ export const useSprite = ({
     };
 
     return {
+        name,
         registerFrameEvent,
         actions: {
             draw

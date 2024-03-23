@@ -8,7 +8,7 @@ export const useFiniteStateMachine = ({
     };
     const transitions = {};
 
-    const getCurrentState = () => state.current;
+    const getState = () => state.current;
 
     const addTransition = ({
         exitState,
@@ -31,7 +31,7 @@ export const useFiniteStateMachine = ({
     const stringify = () => JSON.stringify(transitions);
 
     return {
-        getCurrentState,
+        getState,
         addTransition,
         stringify,
         actions: {
