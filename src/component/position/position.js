@@ -43,6 +43,11 @@ export const usePosition = ({
         state.x = x;
         state.y = y;
     };
+
+    const moveToPosition = position => {
+        const {x ,y} = position.getPosition();
+        moveTo(x, y);
+    }
     
     const lerpTo = (x, y, smoothing) => {
 
@@ -53,6 +58,11 @@ export const usePosition = ({
 
         moveTo(lerpX, lerpY);
     };
+
+    const lerpToPosition = (position, smoothing) => {
+        const {x ,y} = position.getPosition();
+        lerpTo(x, y, smoothing);
+    }
 
     const findDistance = otherPosition => {
 
@@ -91,7 +101,9 @@ export const usePosition = ({
         clone,
         move,
         moveTo,
+        moveToPosition,
         lerpTo,
+        lerpToPosition,
         findDistance,
         rotateAroundPosition
     };

@@ -58,7 +58,7 @@ export const useMousePosition = () => {
 
         if (camera == null) return position;
         
-        const {position: camPos, collider: camCollider, canvas: camCanvas} = camera;
+        const {position: camPos, canvas: camCanvas} = camera;
         const {x: camX, y: camY} = camPos.getPosition();
 
         const camWidth = camCanvas.getWidth();
@@ -69,7 +69,7 @@ export const useMousePosition = () => {
         const relativeX = camX + (mouseX - camWidth / 2) / camera.getZoomScale();
         const relativeY = camY + (mouseY - camHeight / 2) / camera.getZoomScale();
 
-        return usePosition(relativeX, relativeY);
+        return usePosition({x: relativeX, y: relativeY});
     };
 
     return {
