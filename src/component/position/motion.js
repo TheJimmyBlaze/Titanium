@@ -36,8 +36,8 @@ export const useMotion = ({
 
         //Share potential velocity
         if (
-            Math.abs(state.velocityX) > 0.01 && 
-            Math.abs(state.velocityY) > 0.01
+            Math.abs(state.potentialX) > 0.1 && 
+            Math.abs(state.potentialY) > 0.1
         ) {
             state.potentialX *= 0.75;
             state.potentialY *= 0.75;
