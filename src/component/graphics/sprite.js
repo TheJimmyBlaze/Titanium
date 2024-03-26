@@ -14,6 +14,12 @@ export const useSprite = ({
     if (!camera) throw new Error('camera is not defined');
     if (!frames || frames.length === 0)  throw new Error('frames must contain at least one element');
 
+    const state = {
+        options
+    };
+    const getOptions = () => state.options;
+    const setOptions = options => state.options = options;
+
     const frameInterval = 1000 / fps;
 
     let currentFrame = 0;
@@ -48,14 +54,16 @@ export const useSprite = ({
 
     const draw = () => {
 
-        animate(options.reverse);
+        animate(state.options.reverse);
 
         const {x, y} = position.getPosition();
-        frames[currentFrame].draw(x, y, camera, options);
+        frames[currentFrame].draw(x, y, camera, state.options);
     };
 
     return {
         name,
+        getOptions,
+        setOptions,
         registerFrameEvent,
         actions: {
             draw

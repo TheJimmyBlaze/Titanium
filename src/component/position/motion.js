@@ -32,31 +32,40 @@ export const useMotion = ({
     const accelerateY = () => state.potentialY += state.acceleration;
     const decelerateY = () => state.potentialY -= state.acceleration;
 
-    const apply = position => {
+    const apply = (position, virtual = false) => {
 
         //Share potential velocity
+        let potentialX = state.potentialX;
+        let potentialY = state.potentialY;
+
         if (
-            Math.abs(state.potentialX) > 0.1 && 
-            Math.abs(state.potentialY) > 0.1
+            Math.abs(potentialX) > 0.1 && 
+            Math.abs(potentialY) > 0.1
         ) {
-            state.potentialX *= 0.75;
-            state.potentialY *= 0.75;
+            potentialX *= 0.75;
+            potentialY *= 0.75;
         }
         
-        state.velocityX += state.potentialX;
-        state.velocityY += state.potentialY;
-        state.potentialX = 0;
-        state.potentialY = 0;
+        let velocityX = state.velocityX + potentialX;
+        let velocityY = state.velocityY + potentialY;
         
         //Apply drag
         const invertedDrag = 1 - state.drag;
-        state.velocityX *= invertedDrag;
-        state.velocityY *= invertedDrag;
+        velocityX *= invertedDrag;
+        velocityY *= invertedDrag;
 
         //Apply velocity
-        const deltaX = state.velocityX * deltaTime();
-        const deltaY = state.velocityY * deltaTime();
+        const deltaX = velocityX * deltaTime();
+        const deltaY = velocityY * deltaTime();
         position.move(deltaX, deltaY);
+
+        //Commit changes to state if not virtual
+        if (!virtual) {
+            state.potentialX = 0;
+            state.potentialY = 0;
+            state.velocityX = velocityX;
+            state.velocityY = velocityY;
+        }
     };
     
     return {

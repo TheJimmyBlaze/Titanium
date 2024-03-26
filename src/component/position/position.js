@@ -28,11 +28,11 @@ export const usePosition = ({
         };
     };
 
-    const clone = (parent = null) => usePosition(
-        getPosition().x, 
-        getPosition().y,
+    const clone = (parent = null) => usePosition({
+        x: state.x, 
+        y: state.y,
         parent
-    );
+    });
 
     const move = (deltaX, deltaY) => {
         state.x += deltaX;
@@ -84,14 +84,24 @@ export const usePosition = ({
         const cos = Math.cos(radians);
         const sin = Math.sin(radians);
 
-        const {x: parentX, y: parentY} = otherPosition.getPosition();
         const {x, y} = getPosition();
+        const {x: otherX, y: otherY} = otherPosition.getPosition();
 
-        const newX = (cos * (x - parentX)) - (sin * (y - parentY));
-        const newY = (cos * (y - parentY)) + (sin * (x - parentX));
+        const newX = (cos * (x - otherX)) - (sin * (y - otherY));
+        const newY = (cos * (y - otherY)) + (sin * (x - otherX));
        
         moveTo(newX, newY);
-    }
+    };
+
+    const findAngleBetweenPosition = (
+        otherPosition
+    ) => {
+
+        const {x, y} = getPosition();
+        const {x: otherX, y: otherY} = otherPosition.getPosition();
+
+        return Math.atan2(otherY - y, otherX - x) * 180 / Math.PI
+    };
 
     return {
         getParent,
@@ -105,6 +115,7 @@ export const usePosition = ({
         lerpTo,
         lerpToPosition,
         findDistance,
-        rotateAroundPosition
+        rotateAroundPosition,
+        findAngleBetweenPosition
     };
 };
