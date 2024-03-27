@@ -6,6 +6,7 @@ export const getVersion = () => `${packageInfo.name}: ${packageInfo.version}`;
 export { 
 
     timestamp, 
+    lastTimestamp,
     deltaTime, 
     computeTime, 
     

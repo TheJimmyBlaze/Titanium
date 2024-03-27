@@ -31,17 +31,13 @@ export const useMotion = ({
         potentialY: state.potentialY
     });
 
-    const stop = () => {
-        state.potentialX = 0;
-        state.potentialY = 0;
-        state.velocityX = 0;
-        state.velocityY = 0;
-    };
+    const impulseX = impulse => state.potentialX += impulse;
+    const impulseY = impulse => state.potentialY += impulse;
 
-    const accelerateX = () => state.potentialX += state.acceleration;
-    const decelerateX = () => state.potentialX -= state.acceleration;
-    const accelerateY = () => state.potentialY += state.acceleration;
-    const decelerateY = () => state.potentialY -= state.acceleration;
+    const accelerateX = () => state.potentialX += state.acceleration * deltaTime();
+    const decelerateX = () => state.potentialX -= state.acceleration * deltaTime();
+    const accelerateY = () => state.potentialY += state.acceleration * deltaTime();
+    const decelerateY = () => state.potentialY -= state.acceleration * deltaTime();
 
     const apply = (position, virtual = false) => {
 
@@ -57,18 +53,19 @@ export const useMotion = ({
             potentialY *= 0.75;
         }
         
-        let velocityX = state.velocityX + potentialX;
-        let velocityY = state.velocityY + potentialY;
-        
         //Apply drag
         const invertedDrag = 1 - state.drag * deltaTime();
-        velocityX *= invertedDrag;
-        velocityY *= invertedDrag;
+        let velocityX = state.velocityX * invertedDrag;
+        let velocityY = state.velocityY * invertedDrag;
 
         //Apply velocity
+        velocityX += potentialX;
+        velocityY += potentialY;
         const deltaX = velocityX * deltaTime();
         const deltaY = velocityY * deltaTime();
         position.move(deltaX, deltaY);
+
+        console.log(velocityX, velocityY);
 
         //Commit changes to state if not virtual
         if (!virtual) {
@@ -86,7 +83,8 @@ export const useMotion = ({
         setDrag,
         getMotion,
         getPotential,
-        stop,
+        impulseX,
+        impulseY,
         accelerateX,
         decelerateX,
         accelerateY,

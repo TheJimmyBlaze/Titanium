@@ -1,4 +1,4 @@
-import { timestamp } from '../game';
+import { timestamp, lastTimestamp } from '../game';
 
 export const useKeyInput = () => {
 
@@ -9,7 +9,7 @@ export const useKeyInput = () => {
     const wasKeyPressed = key => {
 
         if (!keys[key]) return false;
-        return keys[key].pressTime === timestamp();
+        return keys[key].pressTime >= lastTimestamp();
     }
 
     const keyDown = e => {

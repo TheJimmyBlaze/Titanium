@@ -8,6 +8,9 @@ import { useInputAccess } from './input/inputAccess';
 let lastTime = 0;
 export const timestamp = () => lastTime;
 
+let previousLastTime = 0;
+export const lastTimestamp = () => previousLastTime;
+
 let lastDeltaTime = 0;
 export const deltaTime = () => lastDeltaTime;
 
@@ -37,16 +40,15 @@ export const useGame = ({
     };
 
     const animate = async timestamp => {
-
-        const computeStartTime = performance.now();
         
         act();
         
         //Uncomment below to add fps lag
         //await new Promise(r => setTimeout(r, 40));
         
-        lastComputeTime = performance.now() - computeStartTime;
+        lastComputeTime = performance.now() - timestamp;
         lastDeltaTime = (timestamp - lastTime) / 1000;
+        previousLastTime = lastTime;
         lastTime = timestamp;
         
         requestAnimationFrame(animate);
