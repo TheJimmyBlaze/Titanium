@@ -26,6 +26,10 @@ export const useMotion = ({
         velocityX: state.velocityX, 
         velocityY: state.velocityY
     });
+    const getPotential = () => ({
+        potentialX: state.potentialX,
+        potentialY: state.potentialY
+    });
 
     const accelerateX = () => state.potentialX += state.acceleration;
     const decelerateX = () => state.potentialX -= state.acceleration;
@@ -74,6 +78,7 @@ export const useMotion = ({
         getDrag,
         setDrag,
         getMotion,
+        getPotential,
         accelerateX,
         decelerateX,
         accelerateY,
