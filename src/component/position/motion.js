@@ -65,8 +65,6 @@ export const useMotion = ({
         const deltaY = velocityY * deltaTime();
         position.move(deltaX, deltaY);
 
-        console.log(velocityX, velocityY);
-
         //Commit changes to state if not virtual
         if (!virtual) {
             state.potentialX = 0;
