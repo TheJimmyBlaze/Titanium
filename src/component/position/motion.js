@@ -4,7 +4,7 @@ export const useMotion = ({
     velocityX = 0,
     velocityY = 0,
     acceleration = 10,
-    drag = 0.2
+    drag = 20
 }) => {
 
     const state = {
@@ -61,7 +61,7 @@ export const useMotion = ({
         let velocityY = state.velocityY + potentialY;
         
         //Apply drag
-        const invertedDrag = 1 - state.drag;
+        const invertedDrag = 1 - state.drag * deltaTime();
         velocityX *= invertedDrag;
         velocityY *= invertedDrag;
 
