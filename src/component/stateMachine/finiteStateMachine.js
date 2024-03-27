@@ -25,8 +25,13 @@ export const useFiniteStateMachine = ({
         });
     };
 
+    const findTransition = () => transitions[state.current]?.find(transition => transition.condition());
+
     const update = () => {
-        state.current = transitions[state.current]?.find(transition => transition.condition())?.enterState || state.current;
+        
+        for(let candidate = findTransition(); candidate; candidate = findTransition()) {
+            state.current = candidate.enterState;
+        }
     };
 
     const stringify = () => JSON.stringify(transitions);
