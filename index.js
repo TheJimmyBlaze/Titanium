@@ -34,6 +34,7 @@ export { useRigidBody } from './src/component/collision/rigidBody';
 export { useCamera } from './src/component/graphics/camera';
 export { useCanvas } from './src/component/graphics/canvas';
 export { useSprite } from './src/component/graphics/sprite';
+export { useSpriteOptions } from './src/component/graphics/spriteOptions';
 
 export { useFrameProfiler } from './src/component/performance/frameProfiler';
 

@@ -1,3 +1,4 @@
+import { useSpriteOptions } from '../../component/graphics/spriteOptions';
 
 export const useFrame = ({
     image,
@@ -17,17 +18,22 @@ export const useFrame = ({
     const frameX = x * frameWidth;
     const frameY = y * frameHeight;
 
-    const draw = (x, y, camera, options) => {
+    const draw = (
+        x, 
+        y, 
+        camera, 
+        options = useSpriteOptions({})
+    ) => {
 
         const {
-            offsetX = 0,
-            offsetY = 0,
-            rotation = 0,
-            invert = false,
-            flip = false,
-            crop = null,
-            opacity = 1
-        } = options || {};
+            offsetX,
+            offsetY,
+            rotation,
+            invert,
+            flip,
+            crop,
+            opacity
+        } = options.getOptions();
 
         let drawX = x - frameWidth / 2 - offsetX;
         let drawY = y - frameHeight / 2 - offsetY;

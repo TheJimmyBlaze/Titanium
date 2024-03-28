@@ -47,7 +47,7 @@ export const useSpriteSheet = ({
         sprites[sprite.name] = ({
             position,
             camera,
-            options = {}
+            options
         }) => useSprite({
             name: sprite.name,
             position,

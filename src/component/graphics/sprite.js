@@ -1,4 +1,5 @@
 import { timestamp } from '../../engine/game';
+import { useSpriteOptions } from './spriteOptions';
 
 export const useSprite = ({
     name,
@@ -6,19 +7,13 @@ export const useSprite = ({
     camera,
     frames,
     fps = 0,
-    options = {}
+    options = useSpriteOptions({})
 }) => {
 
     if (!name) throw new Error('name is not defined');
     if (!position) throw new Error('position is not defined');
     if (!camera) throw new Error('camera is not defined');
     if (!frames || frames.length === 0)  throw new Error('frames must contain at least one element');
-
-    const state = {
-        options
-    };
-    const getOptions = () => state.options;
-    const setOptions = options => state.options = options;
 
     const frameInterval = 1000 / fps;
 
@@ -54,16 +49,14 @@ export const useSprite = ({
 
     const draw = () => {
 
-        animate(state.options.reverse);
+        animate(options.getReverse());
 
         const {x, y} = position.getPosition();
-        frames[currentFrame].draw(x, y, camera, state.options);
+        frames[currentFrame].draw(x, y, camera, options);
     };
 
     return {
         name,
-        getOptions,
-        setOptions,
         registerFrameEvent,
         actions: {
             draw
