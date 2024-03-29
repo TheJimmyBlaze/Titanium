@@ -31,7 +31,7 @@ export const useCanvas = ({
     const state = {
         width: getComputedSize().width,
         height: getComputedSize().height,
-        backgroundColour: backgroundColour
+        backgroundColour
     };
 
     const getWidth = () => state.width;

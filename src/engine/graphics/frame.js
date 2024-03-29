@@ -32,6 +32,7 @@ export const useFrame = ({
             invert,
             flip,
             crop,
+            zIndex,
             opacity
         } = options.getOptions();
 
@@ -51,37 +52,40 @@ export const useFrame = ({
             drawHeight -= crop.height || 0
         };
 
-        camera.requestDraw(ctx => {
+        camera.requestDraw(
+            ctx => {
 
-            if (rotation || flip || invert) {
+                if (rotation || flip || invert) {
 
-                ctx.save();
+                    ctx.save();
 
-                ctx.translate(centerX, centerY);
+                    ctx.translate(centerX, centerY);
+                    
+                    if (rotation) ctx.rotate((rotation * Math.PI) / 180);
+                    if (flip || invert) ctx.scale(-1 * flip || 1, -1 * invert || 1);
+        
+                    ctx.translate(-centerX, -centerY);
+                }
                 
-                if (rotation) ctx.rotate((rotation * Math.PI) / 180);
-                if (flip || invert) ctx.scale(-1 * flip || 1, -1 * invert || 1);
-    
-                ctx.translate(-centerX, -centerY);
-            }
-            
-            const preAlpha = ctx.globalAlpha;
-            ctx.globalAlpha = opacity;
-            ctx.drawImage(
-                image, 
-                frameX, 
-                frameY, 
-                frameWidth * framesWide, 
-                frameHeight * framesHigh, 
-                drawX,
-                drawY,
-                drawWidth * framesWide,
-                drawHeight * framesHigh
-            );
-            ctx.globalAlpha = preAlpha;
+                const preAlpha = ctx.globalAlpha;
+                ctx.globalAlpha = opacity;
+                ctx.drawImage(
+                    image, 
+                    frameX, 
+                    frameY, 
+                    frameWidth * framesWide, 
+                    frameHeight * framesHigh, 
+                    drawX,
+                    drawY,
+                    drawWidth * framesWide,
+                    drawHeight * framesHigh
+                );
+                ctx.globalAlpha = preAlpha;
 
-            if (rotation || flip || invert) ctx.restore();
-        });
+                if (rotation || flip || invert) ctx.restore();
+            },
+            zIndex
+        );
     };
     
     return {

@@ -7,6 +7,7 @@ export const useSpriteOptions = ({
     invert = false,
     flip = false,
     crop = null,
+    zIndex = 0,
     opacity = 1
 }) => {
 
@@ -18,6 +19,7 @@ export const useSpriteOptions = ({
         invert,
         flip,
         crop,
+        zIndex,
         opacity
     };
 
@@ -44,6 +46,9 @@ export const useSpriteOptions = ({
     const getCrop = () => state.crop;
     const setCrop = value => state.crop = value;
 
+    const getZIndex = () => state.zIndex;
+    const setZIndex = value => state.zIndex = value;
+
     const getOpacity = () => state.opacity;
     const setOpacity = value => state.opacity = value;
 
@@ -63,6 +68,8 @@ export const useSpriteOptions = ({
         setFlip,
         getCrop,
         setCrop,
+        getZIndex,
+        setZIndex,
         getOpacity,
         setOpacity
     };

@@ -69,11 +69,6 @@ export const useCamera = ({
         }
     };
 
-    const drawQueue = [];
-    const requestDraw = callback => {
-        drawQueue.push(callback);
-    };
-
     const getAbsolutePosition = relative => {
         
         const width = collider.getWidth();
@@ -120,6 +115,11 @@ export const useCamera = ({
         }
     };
 
+    const drawQueue = {};
+    const requestDraw = (callback, zIndex = 0) => {
+        (drawQueue[zIndex] ||= []).push(callback);
+    };
+
     const commit = () => {
 
         //Camera can only be updated immediately before the draw step
@@ -132,11 +132,17 @@ export const useCamera = ({
 
         applyTranslation(ctx);
 
-        while (drawQueue.length > 0) {
+        const drawOrder = Object.keys(drawQueue).sort((a, b) => a > b);
+        drawOrder.forEach(zIndex => {
 
-            drawQueue[0](ctx);
-            drawQueue.shift();
-        }
+            const queue = drawQueue[zIndex];
+            while (queue.length > 0) {
+
+                queue[0](ctx);
+                queue.shift();
+            }
+        });
+        
         ctx.setTransform(1, 0, 0, 1, 0, 0);
     };
 
