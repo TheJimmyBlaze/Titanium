@@ -18,7 +18,7 @@ export const useSprite = ({
     const frameInterval = 1000 / fps;
 
     let currentFrame = 0;
-    let lastFrameChange = 0;
+    let lastFrameChange = timestamp();
 
     const frameEvents = [];
     const registerFrameEvent = (index, callback) => {
