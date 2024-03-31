@@ -133,7 +133,6 @@ export const useCamera = ({
         applyTranslation(ctx);
 
         const drawOrder = Object.keys(drawQueue).sort((a, b) => a - b);
-        console.log(drawOrder);
         drawOrder.forEach(zIndex => {
 
             const queue = drawQueue[zIndex];
