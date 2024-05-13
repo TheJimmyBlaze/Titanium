@@ -3,7 +3,8 @@ import collisionTypes from '../../engine/collision/collisionTypes';
 export const useRectCollider = ({
     position,
     width,
-    height
+    height,
+    drawCamera = null
 }) => {
 
     if (!position) throw new Error('position is not defined');
@@ -34,9 +35,34 @@ export const useRectCollider = ({
     const contains = subject => colliderContains(collider, subject);
     const overlaps = subject => colliderOverlaps(collider, subject);
 
+    const draw = () => {
+
+        if (!drawCamera) return;
+
+        drawCamera.requestDraw(
+            ctx => {
+
+                ctx.strokeStyle = ctx.fillStyle = 'lime';
+
+                const {x, y} = position.getPosition();
+                ctx.rect(
+                    x - width / 2,
+                    y - height / 2,
+                    width,
+                    height
+                );
+                ctx.stroke();
+            },
+            1000
+        );
+    };
+
     return {
         ...collider,
         contains,
-        overlaps
+        overlaps,
+        actions: {
+            draw
+        }
     };
 };

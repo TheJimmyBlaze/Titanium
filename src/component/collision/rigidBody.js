@@ -18,17 +18,24 @@ export const useRigidBody = ({
         motion.apply(position);
 
         //Check collision
-        const colliderIds = registry.getComponent(obstructiveColliderComponent);
-        const colliders = colliderIds?.map(id => registry.getId(id).components.collisionComponentName);
+        const entries = registry.getComponent(obstructiveColliderComponent);
+        const colliders = entries.map(entry => entry.components[obstructiveColliderComponent]);
 
         const collisions = colliders?.filter(candidate => collider.overlaps(candidate));
         if (collisions?.length > 0) {
 
             collisions.forEach(collision => {
 
-                const resolution = resolveCollision(collider, collision.collider);
-                const {x, y} = resolution.getPosition();
-                position.moveTo(x, y);
+                const {x: positionX, y: positionY} = position.getPosition();
+                const {x: colliderX, y: colliderY} = collider.position.getPosition();
+
+                const deltaX = positionX - colliderX;
+                const deltaY = positionY - colliderY;
+
+                const resolution = resolveCollision(collider, collision);
+                const {x: resolveX, y: resolveY} = resolution.getPosition();
+
+                position.moveTo(resolveX + deltaX, resolveY + deltaY);
             });
         }
     };

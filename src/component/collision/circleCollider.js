@@ -4,7 +4,8 @@ import { colliderOverlaps } from '../../engine/collision/overlapCollision';
 
 export const useCircleCollider = ({
     position,
-    radius
+    radius,
+    drawCamera = null
 }) => {
 
     if (!position) throw new Error('position is not defined');
@@ -29,9 +30,37 @@ export const useCircleCollider = ({
     const contains = subject => colliderContains(collider, subject);
     const overlaps = subject => colliderOverlaps(collider, subject);
 
+    const draw = () => {
+
+        if (!drawCamera) return;
+
+        drawCamera.requestDraw(
+            ctx => {
+
+                ctx.strokeStyle = ctx.fillStyle = 'lime';
+
+                const {x, y} = position.getPosition();
+                ctx.moveTo(x + state.radius, y);
+                ctx.arc(
+                    x,
+                    y,
+                    state.radius,
+                    0,
+                    2 * Math.PI
+                );
+                ctx.closePath();
+                ctx.stroke();
+            },
+            1000
+        );
+    };
+
     return {
         ...collider,
         contains,
-        overlaps
+        overlaps,
+        actions: {
+            draw
+        }
     };
 };

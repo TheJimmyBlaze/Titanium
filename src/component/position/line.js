@@ -37,7 +37,7 @@ export const useLine = ({
         const resolveX = aX + vectorAToBX * t;
         const resolveY = aY + vectorAToBY * t;
     
-        return usePosition(resolveX, resolveY);
+        return usePosition({x: resolveX, y: resolveY});
     };
 
     return {

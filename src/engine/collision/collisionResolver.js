@@ -1,11 +1,11 @@
 import collisionTypes from './collisionTypes';
 import { usePosition } from '../../component/position/position';
-import { useLineCollider } from '../../component/collision/lineCollider';
+import { useLine } from '../../component/position/line';
 
 export const resolveCollision = (collider, collided) => {
 
-    const colliderType = collider.getState().type;
-    const collidedType = collided.getState().type;
+    const colliderType = collider.type;
+    const collidedType = collided.type;
 
     if (colliderType === collisionTypes.circle) {
 
@@ -20,7 +20,7 @@ export const resolveCollision = (collider, collided) => {
         throw new Error('not implemented');
     }
 
-    return collider.getState().position.getPosition();
+    return collider.position.getPosition();
 };
 
 const findClosestPointOnCircle = (cX, cY, cR, pX, pY, pR) => {
@@ -33,15 +33,15 @@ const findClosestPointOnCircle = (cX, cY, cR, pX, pY, pR) => {
     const resolveX = cX + vectorX / magnitude * totalRadius;
     const resolveY = cY + vectorY / magnitude * totalRadius;
 
-    return usePosition(resolveX, resolveY);
+    return usePosition({x: resolveX, y: resolveY});
 }
 
 const circleResolve = (collider, collided) => {
 
-    const {position: colliderPos, radius: colliderRadius} = collider.getState();
+    const {position: colliderPos, radius: colliderRadius} = collider;
     const {x: colliderX, y: colliderY} = colliderPos.getPosition();
 
-    const {position: collidedPos, radius: collidedRadius} = collided.getState();
+    const {position: collidedPos, radius: collidedRadius} = collided;
     const {x: collidedX, y: collidedY} = collidedPos.getPosition();
 
     return findClosestPointOnCircle(
@@ -56,11 +56,14 @@ const circleResolve = (collider, collided) => {
 
 const circleRectResolve = (circle, rect) => {
 
-    const {position: circlePos, radius: circleRadius} = circle.getState();
+    const {position: circlePos} = circle;
     const {x: circleX, y: circleY} = circlePos.getPosition();
+    const circleRadius = circle.getRadius();
 
-    const {position: rectPos, width: rectWidth, height: rectHeight} = rect.getState();
+    const {position: rectPos} = rect;
     const {x: rectX, y: rectY} = rectPos.getPosition();
+    const rectWidth = rect.getWidth();
+    const rectHeight = rect.getHeight();
 
     const left = rectX - rectWidth / 2;
     const right = rectX + rectWidth / 2;
@@ -94,10 +97,22 @@ const circleRectResolve = (circle, rect) => {
         }
 
         return [
-            useLineCollider(usePosition(extLeft, extTop), usePosition(extRight, extTop)).findClosestPosition(circlePos),
-            useLineCollider(usePosition(extRight, extTop), usePosition(extRight, extBottom)).findClosestPosition(circlePos),
-            useLineCollider(usePosition(extLeft, extBottom), usePosition(extRight, extBottom)).findClosestPosition(circlePos),
-            useLineCollider(usePosition(extLeft, extTop), usePosition(extLeft, extBottom)).findClosestPosition(circlePos)
+            useLine({
+                startPosition: usePosition({x: extLeft, y: extTop}), 
+                endPosition: usePosition({x: extRight, y: extTop})
+            }).findClosestPositionOnLine(circlePos),
+            useLine({
+                startPosition: usePosition({x: extRight, y: extTop}), 
+                endPosition: usePosition({x: extRight, y: extBottom})
+            }).findClosestPositionOnLine(circlePos),
+            useLine({
+                startPosition: usePosition({x: extLeft, y: extBottom}), 
+                endPosition: usePosition({x: extRight, y: extBottom})
+            }).findClosestPositionOnLine(circlePos),
+            useLine({
+                startPosition: usePosition({x: extLeft, y: extTop}), 
+                endPosition: usePosition({x: extLeft, y: extBottom})
+            }).findClosestPositionOnLine(circlePos)
         ];
     };
 
