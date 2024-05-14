@@ -18,7 +18,7 @@ export const useRigidBody = ({
         motion.apply(position);
 
         //Check collision
-        const entries = registry.getComponent(obstructiveColliderComponent);
+        const entries = registry.getComponentsByName(obstructiveColliderComponent);
         const colliders = entries.map(entry => entry.components[obstructiveColliderComponent]);
 
         const collisions = colliders?.filter(candidate => collider.overlaps(candidate));
