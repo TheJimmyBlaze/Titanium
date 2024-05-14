@@ -19,13 +19,15 @@ export const useRigidBody = ({
 
         //Check collision
         const colliders = registry.getComponentsByName(obstructiveColliderComponent);
-        const collisions = colliders
-            ?.filter(candidate => collider.overlaps(candidate))
-            ?.sort(() => 0.5 - Math.random());
+        const collisions = colliders?.filter(candidate => collider.overlaps(candidate))
         
         if (collisions?.length > 0) {
 
-            collisions.forEach(collision => {
+            while(collisions.length > 0) {
+
+                const index = Math.floor(collisions.length * Math.random());
+                const collision = collisions[index];
+                collisions.splice(index, 1);
 
                 const {x: positionX, y: positionY} = position.getPosition();
                 const {x: colliderX, y: colliderY} = collider.position.getPosition();
@@ -37,7 +39,7 @@ export const useRigidBody = ({
                 const {x: resolveX, y: resolveY} = resolution.getPosition();
 
                 position.moveTo(resolveX + deltaX, resolveY + deltaY);
-            });
+            };
         }
     };
 
