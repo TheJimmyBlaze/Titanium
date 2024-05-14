@@ -68,7 +68,7 @@ const circleRectResolve = (circle, rect) => {
     const left = rectX - rectWidth / 2;
     const right = rectX + rectWidth / 2;
     const top = rectY - rectHeight / 2;
-    const bottom = rectY + rectHeight / 2
+    const bottom = rectY + rectHeight / 2;
 
     const extLeft = left - circleRadius;
     const extRight = right + circleRadius;
