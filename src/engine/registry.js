@@ -3,19 +3,24 @@ export const useRegistry = () => {
 
     const entityIndex = {};
 
-    const componentEntityIdIndex = {};
-    const actionEntityIdIndex = {};
-
     const componentIndex = {};
     const actionIndex = {};
 
     const getEntityById = id => entityIndex[id];
 
-    const getEntityIdsByComponentName = name => { throw new Error('not implemented'); };
-    const getEntityIdsByActionName = name => { throw new Error('not implemented'); };
-
-    const getComponentsByName = name => componentIndex[name] && Object.values(componentIndex[name]);
-    const getActionsByName = name => actionIndex[name] && Object.values(actionIndex[name]);
+    const getComponentsByName = name => (
+        componentIndex[name] && 
+        Object.values(
+            Object.values(componentIndex[name]).flat()
+        ).flat()
+    );
+    
+    const getActionsByName = name => (
+        actionIndex[name] && 
+        Object.values(
+            Object.values(actionIndex[name]).flat()
+        ).flat()
+    );
 
     const register = entity => {
 
@@ -29,22 +34,22 @@ export const useRegistry = () => {
         //Register entity index
         entityIndex[id] = entity;
 
-        Object.keys(components).forEach(component => {
-
-            //Register componentEntityIdIndex
-            //TODO: do
+        Object.keys(components).forEach(componentName => {
 
             //Register component Index
-            (componentIndex[component] ||= []).push(components[component]);
+            const component = components[componentName];
+            ((componentIndex[componentName] ||= {})[id] ||= []).push(component);
 
-            const { actions = {} } = components[component];
-            Object.keys(actions).forEach(action => {
+            const multiComponentIterator = Array.isArray(component) && component || ([component]);
+            multiComponentIterator.forEach(componentInstance => {
 
-                //Register actionEntityIdIndex
-                //TODO: do
-
-                //Register action Index
-                (actionIndex[action] ||= []).push(actions[action]);
+                const { actions = {} } = componentInstance;
+                Object.keys(actions).forEach(actionName => {
+    
+                    //Register action Index
+                    const action = actions[actionName];
+                    ((actionIndex[actionName] ||= {})[id] ||= []).push(action);
+                });
             });
         });
     };
@@ -57,8 +62,6 @@ export const useRegistry = () => {
 
     return {
         getEntityById,
-        getEntityIdsByComponentName,
-        getEntityIdsByActionName,
         getComponentsByName,
         getActionsByName,
         register,

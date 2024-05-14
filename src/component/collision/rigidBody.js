@@ -19,8 +19,8 @@ export const useRigidBody = ({
 
         //Check collision
         const colliders = registry.getComponentsByName(obstructiveColliderComponent);
-
         const collisions = colliders?.filter(candidate => collider.overlaps(candidate));
+        
         if (collisions?.length > 0) {
 
             collisions.forEach(collision => {
