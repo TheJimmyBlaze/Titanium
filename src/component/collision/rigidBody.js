@@ -1,4 +1,4 @@
-import { registry } from '../../engine/game';
+import { registry, frameIndex } from '../../engine/game';
 import { resolveCollision } from '../../engine/collision/collisionResolver';
 
 export const useRigidBody = ({
@@ -19,15 +19,11 @@ export const useRigidBody = ({
 
         //Check collision
         const colliders = registry.getComponentsByName(obstructiveColliderComponent);
-        const collisions = colliders?.filter(candidate => collider.overlaps(candidate))
+        const collisions = colliders?.filter(candidate => collider.overlaps(candidate))?.sort(() => frameIndex() % 2 - 1);
         
         if (collisions?.length > 0) {
 
-            while(collisions.length > 0) {
-
-                const index = Math.floor(collisions.length * Math.random());
-                const collision = collisions[index];
-                collisions.splice(index, 1);
+            collisions.forEach(collision => {
 
                 const {x: positionX, y: positionY} = position.getPosition();
                 const {x: colliderX, y: colliderY} = collider.position.getPosition();
@@ -39,7 +35,7 @@ export const useRigidBody = ({
                 const {x: resolveX, y: resolveY} = resolution.getPosition();
 
                 position.moveTo(resolveX + deltaX, resolveY + deltaY);
-            };
+            });
         }
     };
 

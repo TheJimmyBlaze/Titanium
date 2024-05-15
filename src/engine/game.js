@@ -5,6 +5,9 @@ import { useCommit } from '../system/commit';
 import { useRegistry } from './registry';
 import { useInputAccess } from './input/inputAccess';
 
+let frameIndexNumber = 0;
+export const frameIndex = () => frameIndexNumber;
+
 let lastTime = 0;
 export const timestamp = () => lastTime;
 
@@ -45,7 +48,10 @@ export const useGame = ({
         
         //Uncomment below to add fps lag
         //await new Promise(r => setTimeout(r, 40));
-        
+
+        frameIndexNumber++;
+        frameIndexNumber > Number.MAX_SAFE_INTEGER && (frameIndexNumber = 0);
+
         lastComputeTime = performance.now() - timestamp;
         lastDeltaTime = (timestamp - lastTime) / 1000;
         previousLastTime = lastTime;
