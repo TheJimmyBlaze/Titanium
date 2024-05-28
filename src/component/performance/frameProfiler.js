@@ -28,7 +28,7 @@ export const useFrameProfiler = ({
         }
     };
 
-    const draw = () => {
+    const drawDebug = () => {
 
         drawCamera.requestDraw(ctx => {
 
@@ -50,7 +50,7 @@ export const useFrameProfiler = ({
     return {
         actions: {
             update,
-            draw
+            drawDebug
         }
     };
 };

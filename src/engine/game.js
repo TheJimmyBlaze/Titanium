@@ -1,5 +1,6 @@
 import { useUpdate } from '../system/update';
 import { useDraw } from '../system/draw';
+import { useDrawDebug } from '../system/drawDebug';
 import { useCommit } from '../system/commit';
 
 import { useRegistry } from './registry';
@@ -29,6 +30,7 @@ export const useGame = ({
 
     const engineSystems = [
         useDraw(),
+        useDrawDebug(),
         useUpdate(),
         useCommit()
     ];

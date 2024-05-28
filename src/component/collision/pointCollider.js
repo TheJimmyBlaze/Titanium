@@ -1,7 +1,8 @@
 import colliderTypes from '../../engine/collision/collisionTypes';
 
 export const usePointCollider = ({
-    position
+    position,
+    drawCamera = null
 }) => {
 
     if (!position) throw new Error('position is not defined');
@@ -16,9 +17,44 @@ export const usePointCollider = ({
     const contains = subject => colliderContains(collider, subject);
     const overlaps = subject => colliderOverlaps(collider, subject);
 
+    const drawDebug = () => {
+
+        if (!drawCamera) return;
+
+        drawCamera.requestDraw(
+            ctx => {
+                
+                ctx.strokeStyle = ctx.fillStyle = 'lime';
+
+                const {x, y} = position.getPosition();
+    
+                ctx.moveTo(
+                    x - 1, 
+                    y - 1
+                );
+                ctx.lineTo(
+                    x + 1,
+                    y + 1
+                );
+                ctx.moveTo(
+                    x + 1,
+                    y - 1
+                );
+                ctx.lineTo(
+                    x - 1,
+                    y + 1
+                );
+            },
+            1000
+        );
+    };
+
     return {
         ...collider,
         contains,
-        overlaps
+        overlaps,
+        actions: {
+            drawDebug
+        }
     };
 };

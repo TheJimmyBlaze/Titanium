@@ -1,7 +1,8 @@
 import colliderTypes from '../../engine/collision/collisionTypes';
 
 export const useLineCollider = ({
-    line
+    line,
+    drawCamera = null
 }) => {
 
     if (!line) throw new Error('line is not defined');
@@ -16,9 +17,38 @@ export const useLineCollider = ({
     const contains = subject => colliderContains(collider, subject);
     const overlaps = subject => colliderOverlaps(collider, subject);
 
+    const drawDebug = () => {
+
+        if (!drawCamera) return;
+
+        drawCamera.requestDraw(
+            ctx => {
+
+                ctx.strokeStyle = ctx.fillStyle = 'lime';
+
+                const start = line.getStartPosition().getPosition();
+                const end = line.getEndPosition().getPosition();
+
+                ctx.moveTo(
+                    start.x,
+                    start.y
+                );
+                ctx.lineTo(
+                    end.x,
+                    end.y
+                );
+
+            },
+            1000
+        );
+    };
+
     return {
         ...collider,
         contains,
-        overlaps
+        overlaps,
+        actions: {
+            drawDebug
+        }
     };
 };

@@ -142,7 +142,8 @@ export const useCamera = ({
                 queue.shift();
             }
         });
-        
+
+        ctx.stroke();
         ctx.setTransform(1, 0, 0, 1, 0, 0);
     };
 
