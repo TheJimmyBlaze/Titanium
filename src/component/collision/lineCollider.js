@@ -17,7 +17,7 @@ export const useLineCollider = ({
     const contains = subject => colliderContains(collider, subject);
     const overlaps = subject => colliderOverlaps(collider, subject);
 
-    const drawDebug = () => {
+    const draw = () => {
 
         if (!drawCamera) return;
 
@@ -48,7 +48,7 @@ export const useLineCollider = ({
         contains,
         overlaps,
         actions: {
-            drawDebug
+            draw
         }
     };
 };

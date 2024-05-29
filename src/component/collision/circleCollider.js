@@ -30,7 +30,7 @@ export const useCircleCollider = ({
     const contains = subject => colliderContains(collider, subject);
     const overlaps = subject => colliderOverlaps(collider, subject);
 
-    const drawDebug = () => {
+    const draw = () => {
 
         if (!drawCamera) return;
 
@@ -59,7 +59,7 @@ export const useCircleCollider = ({
         contains,
         overlaps,
         actions: {
-            drawDebug
+            draw
         }
     };
 };

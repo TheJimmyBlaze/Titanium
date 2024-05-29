@@ -35,7 +35,7 @@ export const useRectCollider = ({
     const contains = subject => colliderContains(collider, subject);
     const overlaps = subject => colliderOverlaps(collider, subject);
 
-    const drawDebug = () => {
+    const draw = () => {
 
         if (!drawCamera) return;
 
@@ -61,7 +61,7 @@ export const useRectCollider = ({
         contains,
         overlaps,
         actions: {
-            drawDebug
+            draw
         }
     };
 };
