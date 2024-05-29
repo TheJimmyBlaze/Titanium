@@ -23,8 +23,6 @@ export const usePointCollider = ({
 
         drawCamera.requestDraw(
             ctx => {
-                
-                ctx.strokeStyle = ctx.fillStyle = 'lime';
 
                 const {x, y} = position.getPosition();
     

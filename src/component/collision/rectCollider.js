@@ -42,8 +42,6 @@ export const useRectCollider = ({
         drawCamera.requestDraw(
             ctx => {
 
-                ctx.strokeStyle = ctx.fillStyle = 'lime';
-
                 const {x, y} = position.getPosition();
                 ctx.rect(
                     x - width / 2,

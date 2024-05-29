@@ -37,8 +37,6 @@ export const useCircleCollider = ({
         drawCamera.requestDraw(
             ctx => {
 
-                ctx.strokeStyle = ctx.fillStyle = 'lime';
-
                 const {x, y} = position.getPosition();
                 ctx.moveTo(x + state.radius, y);
                 ctx.arc(

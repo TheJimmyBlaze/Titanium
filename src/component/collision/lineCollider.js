@@ -24,8 +24,6 @@ export const useLineCollider = ({
         drawCamera.requestDraw(
             ctx => {
 
-                ctx.strokeStyle = ctx.fillStyle = 'lime';
-
                 const start = line.getStartPosition().getPosition();
                 const end = line.getEndPosition().getPosition();
 

@@ -1,8 +1,7 @@
 import { deltaTime, computeTime } from '../../engine/game';
 
 export const useFrameProfiler = ({
-    drawCamera,
-    drawColour = 'Lime'
+    drawCamera
 }) => {
 
     const frames = [];
@@ -34,7 +33,6 @@ export const useFrameProfiler = ({
             const x = -(ctx.canvas.width / drawCamera.getZoomScale()) / 2 + 16;
             const y = -(ctx.canvas.height / drawCamera.getZoomScale()) / 2 + 16;
 
-            ctx.strokeStyle = ctx.fillStyle = drawColour;
             ctx.beginPath();
 
             ctx.font = '10px RedVector';
