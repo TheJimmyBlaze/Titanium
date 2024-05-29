@@ -83,6 +83,8 @@ export const useCanvas = ({
 
         ctx.fillStyle = state.backgroundColour;
         ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        
+        ctx.closePath();
         ctx.fill();
     };
 

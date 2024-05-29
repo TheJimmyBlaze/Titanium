@@ -27,6 +27,7 @@ export const useLineCollider = ({
                 const start = line.getStartPosition().getPosition();
                 const end = line.getEndPosition().getPosition();
 
+                ctx.beginPath();
                 ctx.moveTo(
                     start.x,
                     start.y
@@ -35,6 +36,8 @@ export const useLineCollider = ({
                     end.x,
                     end.y
                 );
+                ctx.closePath();
+                ctx.stroke();
 
             },
             1000

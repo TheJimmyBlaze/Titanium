@@ -26,6 +26,7 @@ export const usePointCollider = ({
 
                 const {x, y} = position.getPosition();
     
+                ctx.beginPath();
                 ctx.moveTo(
                     x - 1, 
                     y - 1
@@ -42,6 +43,8 @@ export const usePointCollider = ({
                     x - 1,
                     y + 1
                 );
+                ctx.closePath();
+                ctx.stroke();
             },
             1000
         );

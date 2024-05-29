@@ -38,6 +38,8 @@ export const useCircleCollider = ({
             ctx => {
 
                 const {x, y} = position.getPosition();
+                
+                ctx.beginPath();
                 ctx.moveTo(x + state.radius, y);
                 ctx.arc(
                     x,
@@ -47,6 +49,7 @@ export const useCircleCollider = ({
                     2 * Math.PI
                 );
                 ctx.closePath();
+                ctx.stroke();
             },
             1000
         );

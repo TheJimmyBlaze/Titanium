@@ -40,6 +40,7 @@ export const useFrameProfiler = ({
             ctx.fillText(`FPS: ${getFps()}`, x, y);
             ctx.fillText(`Perf: ${getPerformance()}%`, x, y + 10);
 
+            ctx.closePath();
             ctx.stroke();
         });
     };

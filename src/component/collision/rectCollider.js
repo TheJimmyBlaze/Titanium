@@ -43,12 +43,16 @@ export const useRectCollider = ({
             ctx => {
 
                 const {x, y} = position.getPosition();
+
+                ctx.beginPath();
                 ctx.rect(
                     x - width / 2,
                     y - height / 2,
                     width,
                     height
                 );
+                ctx.closePath();
+                ctx.stroke();
             },
             1000
         );
