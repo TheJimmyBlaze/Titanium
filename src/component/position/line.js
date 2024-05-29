@@ -1,4 +1,4 @@
-import { usePosition } from "./position";
+import { usePosition } from './position';
 
 export const useLine = ({
     startPosition,

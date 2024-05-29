@@ -1,4 +1,4 @@
-import { deltaTime } from "../../engine/game";
+import { deltaTime } from '../../engine/game';
 
 export const useMotion = ({
     velocityX = 0,

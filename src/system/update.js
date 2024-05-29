@@ -1,4 +1,4 @@
-import { registry } from "../engine/game";
+import { registry } from '../engine/game';
 
 export const useUpdate = () => {
     

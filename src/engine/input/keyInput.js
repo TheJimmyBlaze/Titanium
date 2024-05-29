@@ -9,7 +9,7 @@ export const useKeyInput = () => {
     const wasKeyPressed = key => {
 
         if (!keys[key]) return false;
-        return keys[key].pressTime >= lastTimestamp();
+        return keys[key].pressTime > lastTimestamp();
     }
 
     const keyDown = e => {

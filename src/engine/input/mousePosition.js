@@ -1,4 +1,4 @@
-import { usePosition } from "../../component/position/position";
+import { usePosition } from '../../component/position/position';
 
 export const useMousePosition = () => {
 
