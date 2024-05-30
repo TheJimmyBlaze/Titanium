@@ -36,7 +36,7 @@ export const useRegistry = () => {
 
         Object.keys(components).forEach(componentName => {
 
-            //Register component Index
+            //Register component index
             const component = components[componentName];
             ((componentIndex[componentName] ||= {})[id] ||= []).push(component);
 
@@ -46,9 +46,45 @@ export const useRegistry = () => {
                 const { actions = {} } = componentInstance;
                 Object.keys(actions).forEach(actionName => {
     
-                    //Register action Index
+                    //Register action index
                     const action = actions[actionName];
                     ((actionIndex[actionName] ||= {})[id] ||= []).push(action);
+                });
+            });
+        });
+    };
+
+    const deregister = entity => {
+
+        const { 
+            id,
+            components = {}
+        } = entity;
+        if (!id) throw new Error('id is not defined');
+
+        //Deregister entity index
+        delete entityIndex[id];
+
+        Object.keys(components).forEach(componentName => {
+
+            //Deregister component index
+            delete componentIndex[componentName][id];
+            if (Object.keys(componentIndex[componentName]).length === 0) {
+                delete componentIndex[componentName];   //Clear empties
+            }
+
+            const component = components[componentName];
+            const multiComponentIterator = Array.isArray(component) && component || ([component]);
+            multiComponentIterator.forEach(componentInstance => {
+
+                const { actions = {} } = componentInstance;
+                Object.keys(actions).forEach(actionName => {
+
+                    //Deregister action index
+                    delete actionIndex[actionName][id];
+                    if (Object.keys(actionIndex[actionName]).length === 0) {
+                        delete actionIndex[actionName];
+                    }
                 });
             });
         });
@@ -65,6 +101,7 @@ export const useRegistry = () => {
         getComponentsByName,
         getActionsByName,
         register,
+        deregister,
         stringify
     };
 };
