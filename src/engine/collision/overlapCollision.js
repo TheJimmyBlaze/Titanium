@@ -1,5 +1,6 @@
 import collisionTypes from './collisionTypes';
 import { usePosition } from '../../component/position/position';
+import { useLine } from '../../component/position/line';
 import { useLineCollider } from '../../component/collision/lineCollider';
 import { usePointCollider } from '../../component/collision/pointCollider';
 
@@ -79,22 +80,45 @@ const lineRectOverlap = (a, b) => {
     const aStart = a.line.getStartPosition();
     const aEnd = a.line.getEndPosition();
 
-    if (b.contains(usePointCollider(aStart)) || b.contains(usePointCollider(aEnd))) return true;
+    if (
+        b.contains(usePointCollider({position: aStart})) || 
+        b.contains(usePointCollider({position: aEnd}))
+    ) return true;
     
     const {x: bX, y: bY} = b.position.getPosition();
     const bWidth = b.getWidth();
     const bHeight = b.getHeight();
 
-    const top = useLineCollider(usePosition(bX - bWidth / 2, bY - bHeight / 2), usePosition(bX + bWidth / 2, bY - bHeight / 2));
+    const top = useLineCollider({
+        line: useLine({
+            startPosition: usePosition({x: bX - bWidth / 2, y: bY - bHeight / 2}), 
+            endPosition: usePosition({x: bX + bWidth / 2, y: bY - bHeight / 2})
+        })
+    });
     if (lineOverlap(a, top)) return true;
 
-    const bottom = useLineCollider(usePosition(bX + bWidth / 2, bY + bHeight / 2), usePosition(bX - bWidth / 2, bY + bHeight / 2));
+    const bottom = useLineCollider({
+        line: useLine({
+            startPosition: usePosition({x: bX + bWidth / 2, y: bY + bHeight / 2}), 
+            endPosition: usePosition({x: bX - bWidth / 2, y: bY + bHeight / 2})
+        })
+    });
     if (lineOverlap(a, bottom)) return true;
 
-    const left = useLineCollider(usePosition(bX - bWidth / 2, bY + bHeight / 2), usePosition(bX - bWidth / 2, bY - bHeight / 2)); 
+    const left = useLineCollider({
+        line: useLine({
+            startPosition: usePosition({x: bX - bWidth / 2, y: bY + bHeight / 2}),
+            endPosition: usePosition({x: bX - bWidth / 2, y: bY - bHeight / 2})
+        })
+    }); 
     if (lineOverlap(a, left)) return true;
 
-    const right = useLineCollider(usePosition(bX + bWidth / 2, bY - bHeight / 2), usePosition(bX + bWidth / 2, bY + bHeight / 2));
+    const right = useLineCollider({
+        line: useLine({
+            startPosition: usePosition({x: bX + bWidth / 2, y: bY - bHeight / 2}),
+            endPosition: usePosition({x: bX + bWidth / 2, y: bY + bHeight / 2})
+        })
+    });
     if (lineOverlap(a, right)) return true;
 
     return false;

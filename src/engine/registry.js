@@ -38,16 +38,24 @@ export const useRegistry = () => {
 
             //Register component index
             const component = components[componentName];
+
             ((componentIndex[componentName] ||= {})[id] ||= []).push(component);
 
             const multiComponentIterator = Array.isArray(component) && component || ([component]);
             multiComponentIterator.forEach(componentInstance => {
+
+                //Include a reverse lookup key
+                componentInstance.entityId = id;
 
                 const { actions = {} } = componentInstance;
                 Object.keys(actions).forEach(actionName => {
     
                     //Register action index
                     const action = actions[actionName];
+                    
+                    //Include a reverse lookup key
+                    action.entityId = id;
+
                     ((actionIndex[actionName] ||= {})[id] ||= []).push(action);
                 });
             });

@@ -1,4 +1,4 @@
-import { registry, frameIndex } from '../../engine/game';
+import { motionBody } from '../../engine/collision/motionBody';
 import { resolveCollision } from '../../engine/collision/collisionResolver';
 
 export const useRigidBody = ({
@@ -7,21 +7,18 @@ export const useRigidBody = ({
     motion,
     collider
 }) => {
-
-    if (!obstructiveColliderComponent) throw new error('obstructiveColliderComponent is not defined');
-    if (!position) throw new Error('position is not defined');
-    if (!motion) throw new Error('motion is not defined');
-    if (!collider) throw new Error('collider is not defined');
+    
+    const body = motionBody({
+        obstructiveColliderComponent,
+        position,
+        motion,
+        collider
+    });
 
     const update = () => {
 
-        motion.apply(position);
-
-        //Check collision
-        const colliders = registry.getComponentsByName(obstructiveColliderComponent);
-        const collisions = colliders?.filter(candidate => collider.overlaps(candidate))?.sort(() => frameIndex() % 2 - 1);
-        
-        if (!collisions?.length) return
+        const collisions = body.move();
+        if (!collisions?.length) return;
 
         collisions.forEach(collision => {
 

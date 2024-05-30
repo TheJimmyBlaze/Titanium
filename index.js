@@ -17,9 +17,12 @@ export {
 } from './src/engine/game';
 
 export { lerp } from './src/engine/math';
+
 export { resolveCollision } from './src/engine/collision/collisionResolver';
 export { colliderContains } from './src/engine/collision/containCollision';
 export { colliderOverlaps } from './src/engine/collision/overlapCollision';
+export { motionBody } from './src/engine/collision/motionBody';
+
 export { useEntity } from './src/engine/entity';
 export { useSpriteSheet } from './src/engine/graphics/spriteSheet';
 export { useSpriteSheetRun } from './src/engine/graphics/spriteSheetRun';
