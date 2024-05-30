@@ -5,6 +5,7 @@ export const getVersion = () => `${packageInfo.name}: ${packageInfo.version}`;
 //Engine
 export { 
 
+    frameIndex,
     timestamp, 
     lastTimestamp,
     deltaTime, 

@@ -28,7 +28,8 @@ export const usePosition = ({
         };
     };
 
-    const clone = (parent = null) => usePosition({
+    const copy = () => usePosition(getPosition());
+    const clone = () => usePosition({
         x: state.x, 
         y: state.y,
         parent
@@ -93,6 +94,8 @@ export const usePosition = ({
         moveTo(newX, newY);
     };
 
+    const rotateAroundParent = rotation => rotateAroundPosition(rotation, parent);
+
     const findAngleBetweenPosition = (
         otherPosition
     ) => {
@@ -108,6 +111,7 @@ export const usePosition = ({
         setParent,
         getIsolatedPosition,
         getPosition,
+        copy,
         clone,
         move,
         moveTo,
@@ -116,6 +120,7 @@ export const usePosition = ({
         lerpToPosition,
         findDistance,
         rotateAroundPosition,
+        rotateAroundParent,
         findAngleBetweenPosition
     };
 };

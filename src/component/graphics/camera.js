@@ -78,7 +78,7 @@ export const useCamera = ({
         const followX = relativeX - width / 2 / getZoomScale();
         const followY = relativeY - height / 2 / getZoomScale();
 
-        const absolute = relative.clone();
+        const absolute = relative.copy();
         absolute.move(-followX, -followY);
 
         const {x, y} = absolute.getPosition();
@@ -89,7 +89,7 @@ export const useCamera = ({
 
     const getRelativePosition = absolute => {
 
-        const relative = absolute.clone();
+        const relative = absolute.copy();
 
         const {x, y} = relative.getPosition();
         relative.moveTo(x / getZoomScale(), y / getZoomScale());
