@@ -28,6 +28,8 @@ export const useFrame = ({
         const {
             offsetX,
             offsetY,
+            width,
+            height,
             rotation,
             invert,
             flip,
@@ -36,11 +38,11 @@ export const useFrame = ({
             opacity
         } = options.getOptions();
 
-        let drawX = x - frameWidth / 2 - offsetX;
-        let drawY = y - frameHeight / 2 - offsetY;
+        let drawWidth = width || frameWidth;
+        let drawHeight = height || frameHeight;
 
-        let drawWidth = frameWidth;
-        let drawHeight = frameHeight;
+        let drawX = x - drawWidth / 2 - offsetX;
+        let drawY = y - drawHeight / 2 - offsetY;
         
         const centerX = drawX + drawWidth / 2 + offsetX;
         const centerY = drawY + drawHeight / 2 + offsetY;

@@ -2,6 +2,8 @@
 export const useSpriteOptions = ({
     offsetX = 0,
     offsetY = 0,
+    width = null,
+    height = null,
     rotation = 0,
     reverse = false,
     invert = false,
@@ -14,6 +16,8 @@ export const useSpriteOptions = ({
     const state = {
         offsetX,
         offsetY,
+        width,
+        height,
         rotation,
         reverse,
         invert,
@@ -30,6 +34,12 @@ export const useSpriteOptions = ({
 
     const getOffsetY = () => state.offsetY;
     const setOffsetY = value => state.offsetY = value;
+
+    const getWidth = () => state.width;
+    const setWidth = value => state.width = value;
+
+    const getHeight = () => state.height;
+    const setHeight = value => state.height = value;
 
     const getRotation = () => state.rotation;
     const setRotation = value => state.rotation = value;
@@ -58,6 +68,10 @@ export const useSpriteOptions = ({
         setOffsetX,
         getOffsetY,
         setOffsetY,
+        getWidth,
+        setWidth,
+        getHeight,
+        setHeight,
         getRotation,
         setRotation,
         getReverse,

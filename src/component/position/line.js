@@ -18,6 +18,18 @@ export const useLine = ({
 
     const getEndPosition = () => state.endPosition;
     const setEndPosition = position => state.endPosition = position;
+
+    const getLength = () => {
+
+        const {x: aX, y: aY} = getStartPosition().getPosition();
+        const {x: bX, y: bY} = getEndPosition().getPosition();
+
+        const vectorAToBX = bX - aX;
+        const vectorAToBY = bY - aY;
+
+        const length = Math.sqrt(vectorAToBX * vectorAToBX + vectorAToBY * vectorAToBY);
+        return length;
+    }
     
     const findClosestPositionOnLine = position => {
 
@@ -45,6 +57,7 @@ export const useLine = ({
         setStartPosition,
         getEndPosition,
         setEndPosition,
+        getLength,
         findClosestPositionOnLine
     };
 };
