@@ -7,16 +7,16 @@ export const motionBody = ({
     collider
 }) => {
 
-    if (!obstructiveColliderComponent) throw new error('obstructiveColliderComponent is not defined');
     if (!position) throw new Error('position is not defined');
     if (!motion) throw new Error('motion is not defined');
-    if (!collider) throw new Error('collider is not defined');
 
     const move = () => {
 
         motion.apply(position);
 
         //Check collision
+        if (!obstructiveColliderComponent || !collider) return;
+
         const colliders = registry.getComponentsByName(obstructiveColliderComponent);
         const collisions = colliders?.filter(candidate => collider.overlaps(candidate))?.sort(() => frameIndex() % 2 - 1);
         
