@@ -52,12 +52,29 @@ export const useLine = ({
         return usePosition({x: resolveX, y: resolveY});
     };
 
+    const findDistancePositionOnLine = distance => {
+
+        const {x: aX, y: aY} = getStartPosition().getPosition();
+        const {x: bX, y: bY} = getEndPosition().getPosition();
+
+        const slope = (bY - aY) / (bX - aX);
+        const theta = Math.atan(slope);
+
+        const invert = aX - bX > 0 ? 1 : -1;
+
+        const resolveX = bX + (invert * distance) * Math.cos(theta);
+        const resolveY = bY + (invert * distance) * Math.sin(theta);
+
+        return usePosition({x: resolveX, y: resolveY});
+    };
+
     return {
         getStartPosition,
         setStartPosition,
         getEndPosition,
         setEndPosition,
         getLength,
-        findClosestPositionOnLine
+        findClosestPositionOnLine,
+        findDistancePositionOnLine
     };
 };
