@@ -1,7 +1,8 @@
 import { deltaTime, computeTime } from '../../engine/game';
 
 export const useFrameProfiler = ({
-    drawCamera
+    drawCamera,
+    font
 }) => {
 
     const frames = [];
@@ -35,7 +36,7 @@ export const useFrameProfiler = ({
 
             ctx.beginPath();
 
-            ctx.font = '10px RedVector';
+            ctx.font = font;
 
             ctx.fillText(`FPS: ${getFps()}`, x, y);
             ctx.fillText(`Perf: ${getPerformance()}%`, x, y + 10);
