@@ -1,4 +1,4 @@
-import { useSpriteOptions } from '../../component/graphics/spriteOptions';
+import { useSpriteOptions } from './spriteOptions';
 
 export const useFrame = ({
     image,

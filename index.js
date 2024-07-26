@@ -27,6 +27,7 @@ export { motionBody } from './src/engine/collision/motionBody';
 export { useEntity } from './src/engine/entity';
 export { useSpriteSheet } from './src/engine/graphics/spriteSheet';
 export { useSpriteSheetRun } from './src/engine/graphics/spriteSheetRun';
+export { useSpriteOptions } from './src/engine/graphics/spriteOptions';
 
 //Component
 export { usePointCollider } from './src/component/collision/pointCollider';
@@ -38,7 +39,6 @@ export { useRigidBody } from './src/component/collision/rigidBody';
 export { useCamera } from './src/component/graphics/camera';
 export { useCanvas } from './src/component/graphics/canvas';
 export { useSprite } from './src/component/graphics/sprite';
-export { useSpriteOptions } from './src/component/graphics/spriteOptions';
 
 export { useFrameProfiler } from './src/component/performance/frameProfiler';
 

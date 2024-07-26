@@ -1,5 +1,5 @@
 import { timestamp } from '../../engine/game';
-import { useSpriteOptions } from './spriteOptions';
+import { useSpriteOptions } from '../../engine/graphics/spriteOptions';
 
 export const useSprite = ({
     name,
